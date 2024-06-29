@@ -9,7 +9,20 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Test with django test
-        run: python ./docnet_backend/manage.py test
+      - name: Install dependences
+        run: |
+          cd docnet_backend
+          sudo apt-get update
+          sudo apt-get install python3 python3-venv python3-pip
+          python3 --version
+          python3 -m venv venv
+          . venv/bin/activate
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+      - name: Run Django tests
+        run: |
+          cd docnet_backend
+          python manage.py migrate
+          python manage.py test
       - name: Lint with flake8
         run: flake8
