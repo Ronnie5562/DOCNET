@@ -1,4 +1,4 @@
-name: Checks
+name: CI/CD Checks
 
 on: [push]
 
@@ -20,7 +20,12 @@ jobs:
           pip install --upgrade pip
           pip install -r docnet_backend/requirements.txt
 
+      - name: Set environment variables
+        run: echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> $GITHUB_ENV
+
       - name: Run Django tests
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: |
           . venv/bin/activate
           cd docnet_backend
