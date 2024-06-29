@@ -21,7 +21,7 @@ class UserManager(BaseUserManager):
         try:
             validate_email(email)
         except ValidationError:
-            raise ValueError(f'Input a valid email address: {email} is not valid')
+            raise ValueError(f'Input a valid Email: {email} is not valid')
 
         if not password or len(password) < 5:
             raise ValueError('Password must be at least 5 characters')
