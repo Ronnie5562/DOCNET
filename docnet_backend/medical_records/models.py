@@ -16,6 +16,18 @@ class MedicalRecord(models.Model):
     issued_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
+    @property
+    def patient(self):
+        return self.appointment.patient
+
+    @property
+    def doctor(self):
+        return self.appointment.doctor
+
+    @property
+    def appointment_date(self):
+        return self.appointment.start_datetime
+
     def __str__(self):
         return f"{self.appointment.patient.user.email}'s medical\
             Record by {self.appointment.doctor.user.email}"
