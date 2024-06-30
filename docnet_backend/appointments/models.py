@@ -3,6 +3,7 @@ from django.db import models
 from doctor_profiles.models import Doctor
 from patient_profiles.models import Patient
 from appointments.choices import APPOINTMENT_STATUS
+from datetime import timedelta
 
 
 class Appointment(models.Model):
@@ -25,8 +26,13 @@ class Appointment(models.Model):
     date_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.patient} and {self.doctor} on\
+        return f'{self.patient} and {self.doctor} on \
             {self.start_datetime.date()} by {self.start_datetime.time()}'
+
+    def save(self, *args, **kwargs):
+        if self.end_datetime - self.start_datetime > timedelta(hours=1):
+            raise ValueError('Appointments cannot be longer than 1 hour')
+        super().save(*args, **kwargs)
 
     class Meta:
         ordering = ('-start_datetime',)
