@@ -1,10 +1,8 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-
-
-def create_user(email="test@example.com", password="testpassword"):
-    """Helper function to create a user"""
-    return get_user_model().objects.create_user(email, password)
+from patient_profiles.models import Patient
+from doctor_profiles.models import Doctor
+from accounts.tests.utils import create_user
 
 
 class UserModelTest(TestCase):
@@ -57,3 +55,24 @@ class UserModelTest(TestCase):
         self.assertTrue(user.check_password(password))
         self.assertTrue(user.is_staff)
         self.assertTrue(user.is_superuser)
+
+    def test_user_profile_created_automatically(self):
+        """
+        Test that a user profile if automatically created for a user\
+        based on the user role [patient / doctor]
+        """
+        email = "testprofile@gmail.com"
+        password = "testpassword123"
+        user = create_user(email, password)
+
+        if user.role == 'patient':
+            self.assertEqual(Patient.objects.count(), 1)
+            self.assertEqual(Patient.objects.first().user, user)
+            self.assertEqual(Doctor.objects.count(), 0)
+        elif user.role == 'doctor':
+            self.assertEqual(Doctor.objects.count(), 1)
+            self.assertEqual(Doctor.objects.first().user, user)
+            self.assertEqual(Patient.objects.count(), 0)
+        else:
+            self.assertEqual(Doctor.objects.count(), 0)
+            self.assertEqual(Patient.objects.count(), 0)
