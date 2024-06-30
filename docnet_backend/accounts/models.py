@@ -69,7 +69,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         """String representation of a user"""
-        return f"{self.email} - {self.role}"
+        return self.email
 
     class Meta:
         ordering = ("-date_joined",)
