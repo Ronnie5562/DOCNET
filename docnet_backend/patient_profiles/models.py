@@ -17,7 +17,7 @@ class Patient(Profile):
 
 class Document(models.Model):
     caption = models.CharField(max_length=100, blank=True)
-    file = models.FileField(upload_to='documents/')
+    file = models.FileField(upload_to='media/profiles/documents/')
     profile = models.ForeignKey(Patient, on_delete=models.CASCADE)
 
     uploaded_at = models.DateTimeField(auto_now_add=True)

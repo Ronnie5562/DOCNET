@@ -20,7 +20,7 @@ class Profile(models.Model):
     country = models.CharField(max_length=50, blank=True, null=True)
     phone_number = PhoneNumberField(blank=True)
     picture = models.ImageField(
-        upload_to='profile_pics/', blank=True, null=True)
+        upload_to='media/profiles/profile_pics/', blank=True, null=True)
     languages = models.JSONField(default=list, blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)

@@ -5,9 +5,9 @@ from patient_profiles.models import Patient, Document
 
 @admin.register(Patient)
 class PatientAdmin(admin.ModelAdmin):
-    list_display = ['first_name', 'last_name']
+    list_display = ['user', 'first_name', 'last_name']
     search_fields = ['first_name', 'last_name']
-    readonly_fields = ['id', 'created_at', 'updated_at']
+    readonly_fields = ['id', 'user', 'created_at', 'updated_at']
     fieldsets = (
         (
             None,

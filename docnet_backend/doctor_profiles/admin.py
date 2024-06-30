@@ -5,11 +5,11 @@ from doctor_profiles.models import Doctor
 
 @admin.register(Doctor)
 class DoctorAdmin(admin.ModelAdmin):
-    list_display = ['first_name', 'last_name', 'specialty',
+    list_display = ['user', 'first_name', 'last_name', 'specialty',
                     'years_of_experience', 'license_number']
     search_fields = ['first_name', 'last_name',
                      'specialty', 'years_of_experience',]
-    readonly_fields = ['id', 'created_at', 'updated_at']
+    readonly_fields = ['id', 'user', 'created_at', 'updated_at']
 
     fieldsets = (
         (
