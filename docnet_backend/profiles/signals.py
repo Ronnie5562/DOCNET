@@ -2,7 +2,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from doctor_profiles.models import Doctor
 from patient_profiles.models import Patient
-from django.contrib.auth.models import User
+from accounts.models import User
 
 
 @receiver(post_save, sender=User)
