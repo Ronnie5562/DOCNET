@@ -1,4 +1,3 @@
-from unittest.mock import patch
 from django.test import TestCase
 from appointments.models import Appointment
 from profiles.utils import create_patient_user, create_doctor_user
