@@ -1,3 +1,9 @@
+# Media files
+media/
+photo/
+photos/
+files/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
