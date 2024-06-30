@@ -62,6 +62,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
     USERNAME_FIELD = 'email'
 
+    @property
+    def profile(self):
+        profile_attr = f"{self.role}_profile"
+        return getattr(self, profile_attr, None)
+
     def __str__(self):
         """String representation of a user"""
         return f"{self.email} - {self.role}"
