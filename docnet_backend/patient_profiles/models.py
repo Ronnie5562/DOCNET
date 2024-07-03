@@ -1,6 +1,6 @@
 from django.db import models
 from accounts.models import User
-from profiles.models import Profile
+from profiles.models import Profile, ProfileDocument
 
 
 class Patient(Profile):
@@ -15,16 +15,7 @@ class Patient(Profile):
         verbose_name_plural = "Patients"
 
 
-class Document(models.Model):
-    caption = models.CharField(max_length=100, blank=True)
-    file = models.FileField(upload_to='media/profiles/documents/')
-    profile = models.ForeignKey(Patient, on_delete=models.CASCADE)
-
-    uploaded_at = models.DateTimeField(auto_now_add=True)
-    modified_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.file.name
-
-    class Meta:
-        ordering = ("-uploaded_at",)
+class Document(ProfileDocument):
+    profile = models.ForeignKey(
+        Patient, on_delete=models.CASCADE, related_name="documents"
+    )
