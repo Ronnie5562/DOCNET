@@ -27,7 +27,7 @@ class AppointmentAdmin(admin.ModelAdmin):
                     'start_datetime',
                     'end_datetime',
                     'status',
-                    'reason_for_visit',
+                    'reason',
                     'notes',
                 )
             }
@@ -53,7 +53,7 @@ class AppointmentAdmin(admin.ModelAdmin):
                     'doctor',
                     'start_datetime',
                     'end_datetime',
-                    'reason_for_visit',
+                    'reason',
                     'notes'
                 )
             }
