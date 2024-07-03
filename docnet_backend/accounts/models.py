@@ -17,19 +17,13 @@ class UserManager(BaseUserManager):
     use_in_migrations = True
 
     def create_user(self, email, password, **extra_fields):
-        first_name = extra_fields.pop('first_name', None)
-        last_name = extra_fields.pop('last_name', None)
+        first_name = extra_fields.pop('first_name', '')
+        last_name = extra_fields.pop('last_name', '')
 
         try:
             validate_email(email)
         except ValidationError:
             raise ValueError(f'Input a valid Email: {email} is not valid')
-
-        if not first_name or not last_name:
-            raise ValueError('First name and Last name are required')
-
-        if not password or len(password) < 5:
-            raise ValueError('Password must be at least 5 characters')
 
         user = self.model(email=self.normalize_email(email), **extra_fields)
         user.set_password(password)
