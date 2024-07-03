@@ -13,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config("SECRET_KEY")
+SECRET_KEY = config("SECRET_KEY", default="django-insecure$@^_")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=False, cast=bool)
@@ -139,15 +139,15 @@ AUTH_USER_MODEL = 'accounts.User'
 # Email Configuration
 EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
 EMAIL_HOST = config("EMAIL_HOST", default="smtp.gmail.com")
-EMAIL_HOST_USER = config("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="no-reply@docnet.com")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="password")
 EMAIL_PORT = 587
 
 # Cloudinary Configuration
 cloudinary.config(
-    cloud_name=config("CLOUDINARY_CLOUD_NAME"),
-    api_key=config("CLOUDINARY_API_KEY"),
-    api_secret=config("CLOUDINARY_API_SECRET"),
+    cloud_name=config("CLOUDINARY_CLOUD_NAME", default="docnet"),
+    api_key=config("CLOUDINARY_API_KEY", default="api-key"),
+    api_secret=config("CLOUDINARY_API_SECRET", default="api-secret"),
     secure=True
 )
 
