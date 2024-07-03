@@ -19,7 +19,7 @@ class Appointment(models.Model):
         choices=APPOINTMENT_STATUS,
         default='pending'
     )
-    reason_for_visit = models.TextField(blank=True, null=True)
+    reason = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
 
     date_booked = models.DateTimeField(auto_now_add=True)
