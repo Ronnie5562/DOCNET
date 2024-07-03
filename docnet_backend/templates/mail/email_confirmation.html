@@ -1,0 +1,12 @@
+{% autoescape off %}
+Hi {{ name }},
+
+We're excited to have you on board.
+To complete your registration and access the features of our platform, please confirm your email address by clicking the link below:
+Confirmation Link: http://{{ domain }}{% url 'accounts:activate' uidb64=uid token=token %}
+If you have any questions or need assistance, feel free to reach out to our support team here: support@docnet.com
+
+Best regards,
+
+Your friends at Docnet.
+{% endautoescape %}
