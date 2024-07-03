@@ -5,5 +5,5 @@ exclude =
     manage.py,
     settings.py,
     venv,
-    email_service.py,
+    accounts/email_services.py,
     templates,
