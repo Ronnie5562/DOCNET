@@ -20,7 +20,7 @@ class AppointmentModelTest(TestCase):
             start_datetime=self.appointment_start_datetime,
             end_datetime=self.appointment_end_datetime,
             status='pending',
-            reason_for_visit='I am feeling unwell',
+            reason='I am feeling unwell',
             notes='I have been feeling unwell for the past 3 days'
         )
 
