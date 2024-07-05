@@ -21,7 +21,7 @@ const ImageContainer = styled('div')(({ theme }) => ({
     [theme.breakpoints.up(834)]: {
         flexGrow: 1,
         maxHeight: 520,
-        minHeight: 400,
+        minHeight: 500,
     },
 }));
 
@@ -70,8 +70,10 @@ const TwoSidedLayout: React.FC<TwoSidedLayoutProps> = ({ children, reversed }) =
             </Box>
             <ImageContainer>
                 <img
-                    src="https://images.unsplash.com/photo-1483791424735-e9ad0209eea2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
-                    alt=""
+                    src="/images/hero2.jpg"
+                    alt="hader-image"
+                    height="100%"
+                    style={{ objectPosition: 'center' }}
                 />
             </ImageContainer>
         </Container>

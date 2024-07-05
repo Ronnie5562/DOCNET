@@ -9,6 +9,43 @@ import Typography from '@mui/material/Typography';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
+
+const FrequentlyAskedQuestions = {
+  title: 'Frequently asked questions',
+  questions: [
+    {
+      question:
+      'How does Docnet ensure the security and privacy of my medical information?',
+      answer:
+        'Docnet prioritizes the security and privacy of your data. We use encryption and adhere to industry standards to protect your medical information. Access is strictly controlled, and we continuously monitor our systems for any potential vulnerabilities.'
+    },
+    {
+      question:
+      'Can I schedule appointments with specific doctors on Docnet?',
+      answer:
+        'Yes, you can choose from a list of qualified doctors and schedule appointments based on their availability. Docnet allows you to select doctors based on their specialties and expertise.'
+    },
+    {
+      question:
+      'What medical services can I access through Docnet?',
+      answer:
+        'Docnet offers a range of services including virtual consultations, prescription refills, medical advice, and access to medical records. You can consult with doctors for various health concerns that do not require physical examination.'
+    },
+    {
+      question:
+      'How do I pay for consultations and services on Docnet?',
+      answer:
+        'Payment for consultations and services on Docnet can be made securely online through our platform. We accept major credit cards and ensure that your payment information is handled with the highest level of security.'
+    },
+    {
+      question:
+      'Is Docnet covered by insurance plans?',
+      answer:
+        'Docnet partners with various insurance providers to offer coverage for telemedicine services. Please check with your insurance provider to confirm coverage details and reimbursement options.'
+    }
+  ]
+}
+
 export default function FAQ() {
   const [expanded, setExpanded] = React.useState<string | false>(false);
 
@@ -42,17 +79,45 @@ export default function FAQ() {
         Frequently asked questions
       </Typography>
       <Box sx={{ width: '100%' }}>
-        <Accordion
-          expanded={expanded === 'panel1'}
-          onChange={handleChange('panel1')}
+
+        {
+          FrequentlyAskedQuestions.questions.map((question, index) => (
+            <Accordion
+              expanded={expanded === `panel${index + 1}`}
+              onChange={handleChange(`panel${index + 1}`)}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls={`panel${index + 1}d-content`}
+                id={`panel${index + 1}d-header`}
+              >
+                <Typography component="h3" variant="subtitle2">
+                  {question.question}
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography
+                  variant="body2"
+                  gutterBottom
+                  sx={{ maxWidth: { sm: '100%', md: '70%' } }}
+                >
+                  {question.answer}
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          ))
+        }
+        {/* <Accordion
+          expanded={expanded === `panel${FrequentlyAskedQuestions.questions.length + 1}`}
+          onChange={handleChange(`panel${FrequentlyAskedQuestions.questions.length + 1}`)}
         >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1d-content"
-            id="panel1d-header"
+            aria-controls={`panel${FrequentlyAskedQuestions.questions.length + 1}d-content`}
+            id={`panel${FrequentlyAskedQuestions.questions.length + 1}d-header`}
           >
             <Typography component="h3" variant="subtitle2">
-              How do I contact customer support if I have a question or issue?
+              Is there a way to reach out the customer support team?
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -62,88 +127,12 @@ export default function FAQ() {
               sx={{ maxWidth: { sm: '100%', md: '70%' } }}
             >
               You can reach our customer support team by emailing
-              <Link> support@email.com </Link>
+              <Link sx={{ cursor: 'pointer' }}> support@docnet.com </Link>
               or calling our toll-free number. We&apos;re here to assist you
               promptly.
             </Typography>
           </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === 'panel2'}
-          onChange={handleChange('panel2')}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2d-content"
-            id="panel2d-header"
-          >
-            <Typography component="h3" variant="subtitle2">
-              Can I return the product if it doesn&apos;t meet my expectations?
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography
-              variant="body2"
-              gutterBottom
-              sx={{ maxWidth: { sm: '100%', md: '70%' } }}
-            >
-              Absolutely! We offer a hassle-free return policy. If you&apos;re not
-              completely satisfied, you can return the product within [number of
-              days] days for a full refund or exchange.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === 'panel3'}
-          onChange={handleChange('panel3')}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel3d-content"
-            id="panel3d-header"
-          >
-            <Typography component="h3" variant="subtitle2">
-              What makes your product stand out from others in the market?
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography
-              variant="body2"
-              gutterBottom
-              sx={{ maxWidth: { sm: '100%', md: '70%' } }}
-            >
-              Our product distinguishes itself through its adaptability, durability,
-              and innovative features. We prioritize user satisfaction and
-              continually strive to exceed expectations in every aspect.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === 'panel4'}
-          onChange={handleChange('panel4')}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel4d-content"
-            id="panel4d-header"
-          >
-            <Typography component="h3" variant="subtitle2">
-              Is there a warranty on the product, and what does it cover?
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography
-              variant="body2"
-              gutterBottom
-              sx={{ maxWidth: { sm: '100%', md: '70%' } }}
-            >
-              Yes, our product comes with a [length of warranty] warranty. It covers
-              defects in materials and workmanship. If you encounter any issues
-              covered by the warranty, please contact our customer support for
-              assistance.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
+        </Accordion> */}
       </Box>
     </Container>
   );

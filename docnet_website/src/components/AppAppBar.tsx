@@ -12,8 +12,7 @@ import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ToggleColorMode from './ToggleColorMode';
-
-import Sitemark from './SitemarkIcon';
+import DocnetIcon from './DocnetIcon';
 
 interface AppAppBarProps {
   mode: PaletteMode;
@@ -69,7 +68,7 @@ export default function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
           })}
         >
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
-            <Sitemark />
+            <DocnetIcon />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <Button
                 variant="text"
@@ -95,14 +94,14 @@ export default function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
               >
                 Highlights
               </Button>
-              <Button
+              {/* <Button
                 variant="text"
                 color="info"
                 size="small"
                 onClick={() => scrollToSection('pricing')}
               >
                 Pricing
-              </Button>
+              </Button> */}
               <Button
                 variant="text"
                 color="info"
@@ -133,8 +132,8 @@ export default function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
             <IconButton aria-label="Menu button" onClick={toggleDrawer(true)}>
               <MenuIcon />
             </IconButton>
-            <Drawer anchor="top" open={open} onClose={toggleDrawer(false)}>
-              <Box sx={{ p: 2, backgroundColor: 'background.default' }}>
+            <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
+              <Box sx={{ p: 2, backgroundColor: 'background.default', height: '100%', width: '300px', }}>
                 <Box
                   sx={{
                     display: 'flex',
@@ -157,9 +156,9 @@ export default function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
                 <MenuItem onClick={() => scrollToSection('highlights')}>
                   Highlights
                 </MenuItem>
-                <MenuItem onClick={() => scrollToSection('pricing')}>
+                {/* <MenuItem onClick={() => scrollToSection('pricing')}>
                   Pricing
-                </MenuItem>
+                </MenuItem> */}
                 <MenuItem onClick={() => scrollToSection('faq')}>FAQ</MenuItem>
                 <MenuItem>
                   <Button color="primary" variant="contained" fullWidth>

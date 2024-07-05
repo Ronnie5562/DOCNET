@@ -1,10 +1,10 @@
 import Box from '@mui/joy/Box';
-// import Button from '@mui/joy/Button';
 import Button from '@mui/material/Button';
 import Typography from '@mui/joy/Typography';
 import ArrowForward from '@mui/icons-material/ArrowForward';
 import Star from '@mui/icons-material/Star';
 import TwoSidedLayout from '../layouts/TwoSidedLayout';
+import { Diversity2Sharp } from '@mui/icons-material';
 
 const Header = () => {
     return (
@@ -14,11 +14,10 @@ const Header = () => {
                 fontWeight="xl"
                 fontSize="large"
             >
-                A large head about our product features & services
+                Integrated HealthCare Management Platform
             </Typography>
             <Typography fontSize="lg" textColor="text.secondary" lineHeight="lg">
-                A descriptive secondary text placeholder. Use it to explain your business
-                offer better.
+                Expert care, anytime, anywhere. <br /> Connect with top medical professionals from the comfort of your home with Docnet.
             </Typography>
             <Box
                 sx={{
@@ -33,14 +32,14 @@ const Header = () => {
                     Learn More
                 </Button>
                 <Button endIcon={<ArrowForward fontSize="large" />}>
-                    Get Started
+                    Register
                 </Button>
             </Box>
             <Box
                 sx={(theme) => ({
                     display: 'flex',
                     columnGap: 4.5,
-                    rowGap: 1.5,
+                    rowGap: 1,
                     textAlign: 'center',
                     alignSelf: 'stretch',
                     '& > *': {
@@ -64,18 +63,18 @@ const Header = () => {
                         fontWeight="lg"
                         endDecorator={<Star fontSize="large" sx={{ color: 'warning.300' }} />}
                     >
-                        4.9
+                        4.4
                     </Typography>
                     <Typography textColor="text.secondary">
-                        Rated by <b>5k</b> people on trustpilot.com
+                        Our average Rating by <b>70k</b> users globally.
                     </Typography>
                 </div>
                 <div>
-                    <Typography fontSize="xl4" fontWeight="lg">
-                        9.5k+
+                    <Typography fontSize="large" fontWeight="lg">
+                        125.7k+
                     </Typography>
                     <Typography textColor="text.secondary">
-                        Active users from the top world companies.
+                        Active users from 64 countries and  3 continents.
                     </Typography>
                 </div>
             </Box>

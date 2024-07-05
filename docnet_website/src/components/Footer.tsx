@@ -8,20 +8,16 @@ import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-
 import { visuallyHidden } from '@mui/utils';
+import { Instagram, Twitter, LinkedIn } from '@mui/icons-material';
+import DocnetIcon from './DocnetIcon';
 
-import FacebookIcon from '@mui/icons-material/GitHub';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import TwitterIcon from '@mui/icons-material/X';
-
-import SitemarkIcon from './SitemarkIcon';
 
 function Copyright() {
   return (
     <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
       {'Copyright © '}
-      <Link href="https://mui.com/">Sitemark&nbsp;</Link>
+      <Link href="/">Docnet&nbsp;</Link>
       {new Date().getFullYear()}
     </Typography>
   );
@@ -36,7 +32,7 @@ export default function Footer() {
         alignItems: 'center',
         gap: { xs: 4, sm: 8 },
         py: { xs: 8, sm: 10 },
-        textAlign: { sm: 'center', md: 'left' },
+        textAlign: { xs: 'center', sm: 'left' },
       }}
     >
       <Box
@@ -52,13 +48,83 @@ export default function Footer() {
             display: 'flex',
             flexDirection: 'column',
             gap: 4,
-            minWidth: { xs: '100%', sm: '60%' },
+            width: { xs: '100%', sm: '20%', md: '30%' },
+            mt: -1,
           }}
         >
-          <Box sx={{ width: { xs: '100%', sm: '60%' } }}>
-            <SitemarkIcon />
-            <Typography variant="body2" gutterBottom sx={{ fontWeight: 600, mt: 2 }}>
-              Join the newsletter
+          <Box sx={{ width: { xs: '100%' } }}>
+            <DocnetIcon />
+
+            <Typography variant="body2" gutterBottom sx={{ fontWeight: 600, mt: 1}}>
+              Digital HealthCare for Everyone
+            </Typography>
+            <Typography variant="body2" sx={{ color: 'text.secondary', }}>
+              Revolutionizing Healthcare, Virtually. Experience seamless access to trusted healthcare workers and personalized care anytime, anywhere with our innovative telemedicine platform.
+            </Typography>
+          </Box>
+        </Box>
+
+        <Box
+          sx={{
+            display: { xs: 'none', sm: 'flex' },
+            flexDirection: 'column',
+            gap: 1,
+          }}
+        >
+          <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
+            Product
+          </Typography>
+          <Link color="text.secondary" variant="body2" href="#">
+            Features
+          </Link>
+          <Link color="text.secondary" variant="body2" href="#">
+            Testimonials
+          </Link>
+          <Link color="text.secondary" variant="body2" href="#">
+            Highlights
+          </Link>
+          {/* <Link color="text.secondary" variant="body2" href="#">
+            Pricing
+          </Link> */}
+          <Link color="text.secondary" variant="body2" href="#">
+            FAQs
+          </Link>
+        </Box>
+        <Box
+          sx={{
+            display: { xs: 'none', sm: 'flex' },
+            flexDirection: 'column',
+            gap: 1,
+          }}
+        >
+          <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
+            Company
+          </Typography>
+          <Link color="text.secondary" variant="body2" href="#">
+            About us
+          </Link>
+          <Link color="text.secondary" variant="body2" href="#">
+            Careers
+          </Link>
+          <Link color="text.secondary" variant="body2" href="#">
+            Press
+          </Link>
+          <Link color="text.secondary" variant="body2" href="mailto:support@docnet.com">
+            Support
+          </Link>
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 4,
+            // minWidth: { xs: '100%', sm: '30%' },
+            // paddingLeft: { xs: 0, sm: "auto" },
+          }}
+        >
+          <Box >
+            <Typography variant="body2" gutterBottom sx={{ fontWeight: 600 }}>
+              Join our newsletter
             </Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>
               Subscribe for weekly updates. No spams ever!
@@ -85,72 +151,6 @@ export default function Footer() {
               </Button>
             </Stack>
           </Box>
-        </Box>
-        <Box
-          sx={{
-            display: { xs: 'none', sm: 'flex' },
-            flexDirection: 'column',
-            gap: 1,
-          }}
-        >
-          <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
-            Product
-          </Typography>
-          <Link color="text.secondary" variant="body2" href="#">
-            Features
-          </Link>
-          <Link color="text.secondary" variant="body2" href="#">
-            Testimonials
-          </Link>
-          <Link color="text.secondary" variant="body2" href="#">
-            Highlights
-          </Link>
-          <Link color="text.secondary" variant="body2" href="#">
-            Pricing
-          </Link>
-          <Link color="text.secondary" variant="body2" href="#">
-            FAQs
-          </Link>
-        </Box>
-        <Box
-          sx={{
-            display: { xs: 'none', sm: 'flex' },
-            flexDirection: 'column',
-            gap: 1,
-          }}
-        >
-          <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
-            Company
-          </Typography>
-          <Link color="text.secondary" variant="body2" href="#">
-            About us
-          </Link>
-          <Link color="text.secondary" variant="body2" href="#">
-            Careers
-          </Link>
-          <Link color="text.secondary" variant="body2" href="#">
-            Press
-          </Link>
-        </Box>
-        <Box
-          sx={{
-            display: { xs: 'none', sm: 'flex' },
-            flexDirection: 'column',
-            gap: 1,
-          }}
-        >
-          <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
-            Legal
-          </Typography>
-          <Link color="text.secondary" variant="body2" href="#">
-            Terms
-          </Link>
-          <Link color="text.secondary" variant="body2" href="#">
-            Privacy
-          </Link>
-          <Link color="text.secondary" variant="body2" href="#">
-            Contact
-          </Link>
         </Box>
       </Box>
       <Box
@@ -183,27 +183,27 @@ export default function Footer() {
         >
           <IconButton
             color="inherit"
-            href="https://github.com/mui"
-            aria-label="GitHub"
-            sx={{ alignSelf: 'center' }}
-          >
-            <FacebookIcon />
-          </IconButton>
-          <IconButton
-            color="inherit"
-            href="https://x.com/MaterialUI"
-            aria-label="X"
-            sx={{ alignSelf: 'center' }}
-          >
-            <TwitterIcon />
-          </IconButton>
-          <IconButton
-            color="inherit"
-            href="https://www.linkedin.com/company/mui/"
+            href="https://www.linkedin.com/company/docnet"
             aria-label="LinkedIn"
             sx={{ alignSelf: 'center' }}
           >
-            <LinkedInIcon />
+            <LinkedIn />
+          </IconButton>
+          <IconButton
+            color="inherit"
+            href="https://www.instagram.com/@docnet"
+            aria-label="Instagram"
+            sx={{ alignSelf: 'center' }}
+          >
+            <Instagram />
+          </IconButton>
+          <IconButton
+            color="inherit"
+            href="https://x.com/docnet"
+            aria-label="X"
+            sx={{ alignSelf: 'center' }}
+          >
+            <Twitter />
           </IconButton>
         </Stack>
       </Box>
