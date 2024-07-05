@@ -4,19 +4,19 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import AppAppBar from './components/AppAppBar';
 import Hero from './components/Hero.tsx';
 import LogoCollection from './components/LogoCollection';
 import Highlights from './components/Highlights';
 // import Pricing from './components/Pricing';
 import Features from './components/Features';
-import Testimonials from './components/Testimonials';
+// import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 import createMuiTheme from './theme/theme.tsx';
+import ScrollAnimation from 'react-animate-on-scroll';
+import TestimonialsCarousel from './components/TestimonialsCarousel.tsx';
+
 
 
 const App = () => {
@@ -33,10 +33,13 @@ const App = () => {
       <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
       <Hero />
       <Box sx={{ bgcolor: 'background.default' }}>
-        <LogoCollection />
+        <ScrollAnimation animateIn="zoomIn" animateOnce={true}>
+          <LogoCollection />
+        </ScrollAnimation>
         <Features />
         <Divider />
-        <Testimonials />
+        {/* <Testimonials /> */}
+        <TestimonialsCarousel />
         <Divider />
         <Highlights />
         <Divider />
