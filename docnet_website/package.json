@@ -16,12 +16,18 @@
     "@mui/joy": "^5.0.0-beta.36",
     "@mui/material": "^5.15.21",
     "@mui/system": "^5.15.20",
+    "animate.css": "^4.1.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-animate-on-scroll": "^2.1.9",
+    "react-dom": "^18.3.1",
+    "react-slick": "^0.30.2",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
+    "@types/react-animate-on-scroll": "^2.1.8",
     "@types/react-dom": "^18.3.0",
+    "@types/react-slick": "^0.23.13",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
     "@typescript-eslint/parser": "^7.13.1",
     "@vitejs/plugin-react-swc": "^3.5.0",
