@@ -165,7 +165,7 @@ const getDesignTokens = (mode: PaletteMode) => ({
     },
   },
   typography: {
-    fontFamily: ['Inter', 'sans-serif'].join(','),
+    fontFamily: ["IBM Plex Sans", "sans-serif"].join(","),
     h1: {
       fontSize: customTheme.typography.pxToRem(60),
       fontWeight: 600,
