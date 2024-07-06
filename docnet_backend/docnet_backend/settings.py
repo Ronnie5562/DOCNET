@@ -33,6 +33,7 @@ INSTALLED_APPS = [
 
     # Third Party Apps
     "cloudinary",
+    "django_countries",
     "corsheaders",
     "phonenumber_field",
     "rest_framework",
