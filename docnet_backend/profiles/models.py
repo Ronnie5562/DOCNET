@@ -5,6 +5,8 @@ from cloudinary.models import CloudinaryField
 from cloudinary.uploader import upload
 from profiles.utils import profile_pic_file_path, document_file_path
 from phonenumber_field.modelfields import PhoneNumberField
+from django_countries import countries
+from django_countries.fields import CountryField
 
 
 class Profile(models.Model):
@@ -20,7 +22,7 @@ class Profile(models.Model):
     address = models.CharField(max_length=255, blank=True, null=True)
     zip_code = models.CharField(max_length=10, blank=True, null=True)
     city = models.CharField(max_length=50, blank=True, null=True)
-    country = models.CharField(max_length=50, blank=True, null=True)
+    country = CountryField(choices=list(countries), blank=True, null=True)
     phone_number = PhoneNumberField(blank=True)
     picture = CloudinaryField('image', blank=True, null=True)
     languages = models.JSONField(default=list, blank=True, null=True)
@@ -33,6 +35,12 @@ class Profile(models.Model):
             file_path = profile_pic_file_path(self, self.picture.name)
             upload(self.picture.file, public_id=file_path, overwrite=True)
             self.picture = file_path
+
+        try:
+            self.full_clean()
+        except Exception as e:
+            raise e
+
         super(Profile, self).save(*args, **kwargs)
 
     def __str__(self):
