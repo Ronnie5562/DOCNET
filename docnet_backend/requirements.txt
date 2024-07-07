@@ -11,6 +11,7 @@ django-cors-headers==4.0.0
 django-countries==7.6.1
 django-jazzmin==3.0.0
 django-phonenumber-field==8.0.0
+django-timezone-field==6.1.0
 djangorestframework==3.14.0
 djangorestframework-simplejwt==5.3.1
 drf-spectacular==0.26.2
