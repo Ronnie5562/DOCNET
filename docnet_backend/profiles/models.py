@@ -1,5 +1,5 @@
 import uuid
-import pytz
+import pytz # noqa
 from django.db import models
 from cloudinary.uploader import upload
 from django_countries import countries
@@ -9,6 +9,7 @@ from cloudinary.models import CloudinaryField
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
 from profiles.utils import profile_pic_file_path, document_file_path
+
 
 class Profile(models.Model):
     id = models.UUIDField(

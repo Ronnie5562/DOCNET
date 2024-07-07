@@ -1,5 +1,5 @@
 import uuid
-import pytz
+import pytz # noqa
 from django.db import models
 from datetime import timedelta
 from timezone_field import TimeZoneField
