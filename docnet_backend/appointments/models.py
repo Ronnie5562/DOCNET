@@ -1,9 +1,11 @@
 import uuid
+import pytz
 from django.db import models
+from datetime import timedelta
+from timezone_field import TimeZoneField
 from doctor_profiles.models import Doctor
 from patient_profiles.models import Patient
 from appointments.choices import APPOINTMENT_STATUS
-from datetime import timedelta
 
 
 class Appointment(models.Model):
@@ -14,6 +16,8 @@ class Appointment(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
     start_datetime = models.DateTimeField()
     end_datetime = models.DateTimeField()
+    timezone = TimeZoneField(
+        use_pytz=True, default='UTC', choices_display="WITH_GMT_OFFSET")
     status = models.CharField(
         max_length=20,
         choices=APPOINTMENT_STATUS,

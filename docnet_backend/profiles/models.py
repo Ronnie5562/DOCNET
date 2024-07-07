@@ -1,13 +1,14 @@
 import uuid
+import pytz
 from django.db import models
+from cloudinary.uploader import upload
+from django_countries import countries
+from timezone_field import TimeZoneField
 from profiles.choices import GENDER_CHOICES
 from cloudinary.models import CloudinaryField
-from cloudinary.uploader import upload
-from profiles.utils import profile_pic_file_path, document_file_path
-from phonenumber_field.modelfields import PhoneNumberField
-from django_countries import countries
 from django_countries.fields import CountryField
-
+from phonenumber_field.modelfields import PhoneNumberField
+from profiles.utils import profile_pic_file_path, document_file_path
 
 class Profile(models.Model):
     id = models.UUIDField(
@@ -26,6 +27,8 @@ class Profile(models.Model):
     phone_number = PhoneNumberField(blank=True)
     picture = CloudinaryField('image', blank=True, null=True)
     languages = models.JSONField(default=list, blank=True, null=True)
+    timezone = TimeZoneField(
+        use_pytz=True, default='UTC', choices_display="WITH_GMT_OFFSET")
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
