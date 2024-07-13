@@ -6,7 +6,6 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   if (!isLoggedIn) {
     return <Navigate to="/login" replace={true} />;
   }
-  console.log("test");
   return <>{children}</>; // Wrapping children in a React fragment
 };
 
