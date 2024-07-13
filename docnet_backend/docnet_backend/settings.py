@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 from decouple import config
+from datetime import timedelta
 import cloudinary
 import cloudinary.api
 import cloudinary.uploader
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
 
     # Internal Apps
+    "utils",
     "accounts",
     "appointments",
     "doctor_profiles",
@@ -53,6 +55,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "accounts.middleware.JWTAuthenticationMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
@@ -161,7 +164,6 @@ REST_FRAMEWORK = {
     )
 }
 
-
 # DRF-Spectacular Settings
 SPECTACULAR_SETTINGS = {
     'TITLE': 'DOCNET BACKEND API',
@@ -169,4 +171,17 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '0.0.1',
     'SERVE_INCLUDE_SCHEMA': True,
     # OTHER SETTINGS
+}
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=30),
+
+    # JWTCookie
+    "ACCESS_TOKEN_NAME": "access",
+    "REFRESH_TOKEN_NAME": "refresh",
+    "JWT_COOKIE_SAMESITE": "Lax",
 }
