@@ -1,9 +1,9 @@
 from drf_spectacular.extensions import OpenApiAuthenticationExtension
-from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.authentication import JWTAuthentication # noqa
 
 
 class JWTCookieAuthenticationScheme(OpenApiAuthenticationExtension):
-    target_class = 'rest_framework_simplejwt.authentication.JWTCookieAuthentication'
+    target_class = 'rest_framework_simplejwt.authentication.JWTCookieAuthentication' # noqa
     name = 'JWTCookieAuthentication'
     match_subclasses = True
 

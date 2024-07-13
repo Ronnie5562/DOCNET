@@ -5,7 +5,7 @@ from cloudinary.uploader import upload
 from django_countries import countries
 from profiles.choices import GENDER_CHOICES
 from django_countries.fields import CountryField
-from profiles.utils import profile_pic_file_path, document_file_path
+from profiles.utils import document_file_path
 
 
 class Profile(models.Model):

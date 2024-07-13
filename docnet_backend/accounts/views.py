@@ -32,7 +32,6 @@ class ListCreateUserView(generics.ListCreateAPIView):
     authentication_classes = []
     permission_classes = [permissions.AllowAny]
 
-
     def perform_create(self, serializer):
         """Create a new user"""
         user = serializer.save()
@@ -51,7 +50,6 @@ class DetailUserView(generics.RetrieveAPIView):
     serializer_class = UserSerializer
     queryset = get_user_model().objects.all()
     lookup_field = "id"
-
 
 
 class ManageProfileView(generics.RetrieveUpdateDestroyAPIView):
@@ -90,6 +88,7 @@ class ActivateAccountAPIView(APIView):
 
 class LogOutAPIView(APIView):
     serializer_class = LogOutSerializer
+
     def post(self, request, format=None):
         response = Response("Logged out successfully")
 
