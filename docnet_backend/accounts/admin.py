@@ -6,13 +6,28 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
-    list_display = ['email', 'role', 'is_staff', 'is_active']
-    search_fields = ['email', 'role']
-    readonly_fields = ['last_login', 'date_joined', 'date_modified']
+    list_display = ['first_name', 'last_name',
+                    'email', 'role', 'is_staff', 'is_active']
+    search_fields = ['first_name', 'last_name', 'email', 'role']
+    readonly_fields = ['email', 'last_login', 'date_joined', 'date_modified']
     ordering = ("-date_joined",)
 
     fieldsets = (
-        (None, {'fields': ('email', 'role', 'password')}),
+        (
+            None,
+            {
+                'fields': (
+                    'first_name',
+                    'last_name',
+                    'email',
+                    'role',
+                    'password',
+                    'phone_number',
+                    'picture',
+                    'timezone'
+                )
+            }
+        ),
         (
             _('Permissions'),
             {
@@ -40,7 +55,17 @@ class UserAdmin(BaseUserAdmin):
             None,
             {
                 'classes': ('wide',),
-                'fields': ('email', 'password1', 'password2', 'role')
+                'fields': (
+                    'first_name',
+                    'last_name',
+                    'email',
+                    'password1',
+                    'password2',
+                    'role',
+                    'phone_number',
+                    'picture',
+                    'timezone',
+                )
             }
         ),
     )

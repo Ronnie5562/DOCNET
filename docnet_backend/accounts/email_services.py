@@ -40,7 +40,7 @@ Your friends at Docnet.
 class EmailService:
     def send_welcome_email(self, user):
         subject = "Welcome to Docnet, Your Health Partner!"
-        message = generate_email_message(user.profile.first_name)
+        message = generate_email_message(user.first_name)
         welcome_email = EmailMessage(
             subject,
             message,
@@ -53,7 +53,7 @@ class EmailService:
         current_site = get_current_site(request)
         email_confirmation_subject = "Verify Your Email - Docnet"
         email_confirmation_message = render_to_string('mail/email_confirmation.html', {
-            'name': user.profile.first_name,
+            'name': user.first_name,
             'domain': current_site.domain,
             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
             'token': generate_token.make_token(user)

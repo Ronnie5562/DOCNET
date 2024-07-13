@@ -5,9 +5,14 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin
 )
+from cloudinary.uploader import upload
 from accounts.choices import USER_ROLES
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
+from timezone_field import TimeZoneField
+from cloudinary.models import CloudinaryField
+from phonenumber_field.modelfields import PhoneNumberField
+from profiles.utils import profile_pic_file_path
 
 
 class UserManager(BaseUserManager):
@@ -17,9 +22,6 @@ class UserManager(BaseUserManager):
     use_in_migrations = True
 
     def create_user(self, email, password, **extra_fields):
-        first_name = extra_fields.pop('first_name', '')
-        last_name = extra_fields.pop('last_name', '')
-
         try:
             validate_email(email)
         except ValidationError:
@@ -28,10 +30,6 @@ class UserManager(BaseUserManager):
         user = self.model(email=self.normalize_email(email), **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
-
-        user.profile.first_name = first_name
-        user.profile.last_name = last_name
-        user.profile.save()
 
         return user
 
@@ -56,6 +54,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     role = models.CharField(
         max_length=50, choices=USER_ROLES, default='patient')
 
+    first_name = models.CharField(max_length=50, blank=True, null=True)
+    last_name = models.CharField(max_length=50, blank=True, null=True)
+    phone_number = PhoneNumberField(blank=True)
+    picture = CloudinaryField('image', blank=True, null=True)
+    timezone = TimeZoneField(
+        use_pytz=True, default='UTC', choices_display="WITH_GMT_OFFSET")
+
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
@@ -65,6 +70,19 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
     USERNAME_FIELD = 'email'
 
+    def save(self, *args, **kwargs):
+        if self.picture:
+            file_path = profile_pic_file_path(self, self.picture.name)
+            upload(self.picture.file, public_id=file_path, overwrite=True)
+            self.picture = file_path
+
+        try:
+            self.full_clean()
+        except Exception as e:
+            raise e
+
+        super(User, self).save(*args, **kwargs)
+
     @property
     def profile(self):
         profile_attr = f"{self.role}_profile"
@@ -72,7 +90,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         """String representation of a user"""
-        return self.email
+        return f"{self.first_name} {self.last_name} - {self.email}"
 
     class Meta:
         ordering = ("-date_joined",)
