@@ -27,10 +27,13 @@ class PatientProfileListSerializer(ProfileListSerializer):
 
 
 class PatientProfileDetailSerializer(ProfileDetailSerializer):
+    documents = DocumentSerializer(many=True, required=False)
+
     class Meta(ProfileDetailSerializer.Meta):
         model = Patient
         fields = ProfileDetailSerializer.Meta.fields + (
             'medical_history',
             'allergies',
             'current_medications',
+            'documents'
         )
