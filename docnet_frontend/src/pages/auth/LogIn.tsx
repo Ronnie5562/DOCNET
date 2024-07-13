@@ -1,5 +1,5 @@
-import React from 'react';
 import Box from '@mui/joy/Box';
+import { useFormik } from "formik";
 import Button from '@mui/joy/Button';
 import Checkbox from '@mui/joy/Checkbox';
 import Divider from '@mui/joy/Divider';
@@ -9,22 +9,49 @@ import Link from '@mui/joy/Link';
 import Input from '@mui/joy/Input';
 import Typography from '@mui/joy/Typography';
 import Stack from '@mui/joy/Stack';
+import { useNavigate } from "react-router-dom";
 import AuthPage from '../templates/auth/AuthPage';
 import GoogleIcon from '../../components/auth/GoogleIcon';
-
-
-interface FormElements extends HTMLFormControlsCollection {
-    email: HTMLInputElement;
-    password: HTMLInputElement;
-    persistent: HTMLInputElement;
-}
-
-interface LogInFormElement extends HTMLFormElement {
-    readonly elements: FormElements;
-}
+import { useAuthServiceContext } from '../../context/AuthContext';
+import FormHelperText from '@mui/joy/FormHelperText';
+import { InfoOutlined } from '@mui/icons-material';
 
 
 const LogIn = () => {
+    const { login } = useAuthServiceContext();
+    const navigate = useNavigate();
+
+    const formik = useFormik({
+        initialValues: {
+            email: "",
+            password: "",
+        },
+        validate: (values) => {
+            const errors: Partial<typeof values> = {};
+            if (!values.email) {
+                errors.email = "Required";
+            }
+            if (!values.password) {
+                errors.password = "Required";
+            }
+            return errors;
+        },
+        onSubmit: async (values) => {
+            const { email, password } = values;
+            const status = await login(email, password);
+            if (status === 401) {
+                console.log("Unauthorised");
+                formik.setErrors({
+                    email: "Invalid email or password",
+                    password: "Invalid email or password",
+                });
+            }
+            // else {
+            //     navigate("/profile");
+            // }
+        },
+    });
+
     return (
         <AuthPage>
             <Stack gap={4} sx={{ mb: 2 }}>
@@ -49,26 +76,47 @@ const LogIn = () => {
             >
             </Divider>
             <Stack gap={4} sx={{ mt: 2 }}>
-                <form
-                    onSubmit={(event: React.FormEvent<LogInFormElement>) => {
-                        event.preventDefault();
-                        const formElements = event.currentTarget.elements;
-                        const data = {
-                            email: formElements.email.value,
-                            password: formElements.password.value,
-                            persistent: formElements.persistent.checked,
-                        };
-                        alert(JSON.stringify(data, null, 2));
-                    }}
-                >
-                    <FormControl required>
+                <Box component="form" onSubmit={formik.handleSubmit} sx={{ mt: 1 }}>
+                    <FormControl required error>
                         <FormLabel>Email</FormLabel>
-                        <Input type="email" name="email" />
+                        <Input
+                            autoFocus
+                            fullWidth
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={formik.values.email}
+                            onChange={formik.handleChange}
+                            error={!!formik.touched.email && !!formik.errors.email}
+                        />
+                        {
+                            (formik.touched.email && formik.errors.email) &&
+                            <FormHelperText>
+                                <InfoOutlined />
+                                {formik.errors.email}
+                            </FormHelperText>
+                        }
                     </FormControl>
-                    <FormControl required>
+                    <FormControl required error>
                         <FormLabel>Password</FormLabel>
-                        <Input type="password" name="password" />
+                        <Input
+                            fullWidth
+                            id="password"
+                            name="password"
+                            type="password"
+                            value={formik.values.password}
+                            onChange={formik.handleChange}
+                            error={!!formik.touched.password && !!formik.errors.password}
+                        />
+                        {
+                            (formik.touched.password && formik.errors.password ) &&
+                            <FormHelperText>
+                                <InfoOutlined />
+                                {formik.errors.password}
+                            </FormHelperText>
+                        }
                     </FormControl>
+
                     <Stack gap={4} sx={{ mt: 2 }}>
                         <Box
                             sx={{
@@ -82,11 +130,11 @@ const LogIn = () => {
                                 Forgot your password?
                             </Link>
                         </Box>
-                        <Button type="submit" fullWidth>
+                        <Button type="submit" fullWidth sx={{ mt: 1, mb: 2 }}>
                             Sign in
                         </Button>
                     </Stack>
-                </form>
+                </Box>
             </Stack>
             <Divider
                 sx={(theme) => ({

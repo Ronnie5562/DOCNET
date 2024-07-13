@@ -1,8 +1,8 @@
 import axios from "axios";
-import { AuthServiceProps } from "../@types/auth-service";
 import { useState } from "react";
 import { BASE_URL } from "../config";
 import { useNavigate } from "react-router-dom";
+import { AuthServiceProps } from "../@types/auth-service";
 
 
 export function useAuthService(): AuthServiceProps {
@@ -12,23 +12,28 @@ export function useAuthService(): AuthServiceProps {
     const getInitialLoggedInValue = () => {
         const loggedIn = localStorage.getItem("isLoggedIn");
         return loggedIn !== null && loggedIn === "true";
-      };
+    };
 
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>((getInitialLoggedInValue))
-    
+
     const getUserDetails = async () =>{
         try {
-            const userId = localStorage.getItem("user_id")
             const response = await axios.get(
-                `http://127.0.0.1:8000/api/account/?user_id=${userId}`,
+                `${BASE_URL}/users/me`,
                 {
                     withCredentials: true
                 }
             );
             const userDetails = response.data
-            localStorage.setItem("username", userDetails.username);
-            setIsLoggedIn(true);
-            localStorage.setItem("isLoggedIn", "true")
+            localStorage.setItem("email", userDetails.email);
+            localStorage.setItem("role", userDetails.role);
+            localStorage.setItem("first_name", userDetails.first_name);
+            localStorage.setItem("last_name", userDetails.last_name);
+            localStorage.setItem("picture", userDetails.picture);
+
+
+            // setIsLoggedIn(true);
+            // localStorage.setItem("isLoggedIn", "true")
         } catch (err: any) {
             setIsLoggedIn(false)
             localStorage.setItem("isLoggedIn", "false")
@@ -36,21 +41,28 @@ export function useAuthService(): AuthServiceProps {
         }
     }
 
-    const login = async (username: string, password: string) =>{
+    const login = async (email: string, password: string) =>{
         try {
             const response = await axios.post(
-                "http://127.0.0.1:8000/api/token/", {
-                    username,
+                `${BASE_URL}/users/token/`, {
+                    email,
                     password,
             }, { withCredentials: true }
             );
 
+            console.log(response.data)
+
             const user_id = response.data.user_id
-            localStorage.setItem("isLoggedIn", "true")
             localStorage.setItem("user_id", user_id)
+
+            localStorage.setItem("isLoggedIn", "true")
             setIsLoggedIn(true)
+
             getUserDetails()
 
+            // I used setTimeout to delay the navigation to the profile page
+            // So that the data I need to store in localstorage is available
+            setTimeout(() => navigate("/profile"), 100)
         } catch (err: any) {
             return err.response.status;
         }
@@ -59,45 +71,52 @@ export function useAuthService(): AuthServiceProps {
     const refreshAccessToken = async () => {
         try {
             await axios.post(
-                `${BASE_URL}/token/refresh/`, {} , {withCredentials:true}
+                `${BASE_URL}/users/token/refresh/`, {} , {withCredentials:true}
             )
         } catch (refreshError) {
             return Promise.reject(refreshError)
         }
     }
 
-    const register = async (username: string, password: string) =>{
+    const register = async (
+        firstname: string, lastname: string, email: string, password: string) =>{
         try {
             const response = await axios.post(
-                "http://127.0.0.1:8000/api/register/", {
-                    username,
+                `${BASE_URL}/users/`, {
+                    email,
                     password,
-            }, { withCredentials: true }
+                    first_name: firstname,
+                    last_name: lastname,
+                },
+                { withCredentials: true }
             );
-            return response.status
-        } catch (err: any) {
-            return err.response.status;
+            console.log(response.data)
+            return { response, status: response.status }
+        } catch (error: any) {
+            return { response: error.response, status: error.response.status }
         }
     }
-
 
     const logout = async () => {
         localStorage.setItem("isLoggedIn", "false")
         localStorage.removeItem("user_id")
-        localStorage.removeItem("username");
+        localStorage.removeItem("role")
+        localStorage.removeItem("email");
+        localStorage.removeItem("first_name");
+        localStorage.removeItem("last_name");
+        localStorage.removeItem("picture");
+
         setIsLoggedIn(false);
         navigate("/login")
 
         try {
             await axios.post(
-                `${BASE_URL}/logout/`, {} , {withCredentials:true}
+                `${BASE_URL}/users/logout/`, {} , {withCredentials:true}
             )
         } catch (refreshError) {
             return Promise.reject(refreshError)
         }
-
     }
 
-    return {login, isLoggedIn, logout, refreshAccessToken, register}
-   
+    return { login, isLoggedIn, logout, refreshAccessToken, register }
 }
