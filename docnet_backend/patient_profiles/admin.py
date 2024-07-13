@@ -5,8 +5,8 @@ from patient_profiles.models import Patient, Document
 
 @admin.register(Patient)
 class PatientAdmin(admin.ModelAdmin):
-    list_display = ['user', 'first_name', 'last_name']
-    search_fields = ['first_name', 'last_name']
+    list_display = ['user']
+    search_fields = ['user']
     readonly_fields = ['id', 'user', 'created_at', 'updated_at']
     fieldsets = (
         (
@@ -22,16 +22,12 @@ class PatientAdmin(admin.ModelAdmin):
             _('Personal Information'),
             {
                 'fields': (
-                    'first_name',
-                    'last_name',
                     'bio',
                     'gender',
                     'address',
                     'zip_code',
                     'city',
                     'country',
-                    'phone_number',
-                    'picture',
                     'languages',
                 )
             }
@@ -73,16 +69,12 @@ class PatientAdmin(admin.ModelAdmin):
             {
                 'classes': ('wide',),
                 'fields': (
-                    'first_name',
-                    'last_name',
                     'bio',
                     'gender',
                     'address',
                     'zip_code',
                     'city',
                     'country',
-                    'phone_number',
-                    'picture',
                     'languages',
                 )
             }

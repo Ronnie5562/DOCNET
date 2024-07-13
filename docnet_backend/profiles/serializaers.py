@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from profiles.models import Profile
+from django_countries.fields import Country
 from accounts.serializers import UserSerializer
 
 
@@ -11,23 +12,29 @@ class ProfileListSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'user',
-            'picture',
-            'first_name',
-            'last_name',
         )
         read_only_fields = ('id', 'user')
 
 
+class CountryFieldSerializer(serializers.Field):
+    def to_representation(self, value):
+        if isinstance(value, Country):
+            return str(value)
+        return value
+
+    def to_internal_value(self, data):
+        return Country(data)
+
+
 class ProfileDetailSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
+    country = CountryFieldSerializer()
 
     class Meta:
         model = Profile
         fields = (
             'id',
             'user',
-            'first_name',
-            'last_name',
             'bio',
             'date_of_birth',
             'gender',
@@ -35,8 +42,6 @@ class ProfileDetailSerializer(serializers.ModelSerializer):
             'zip_code',
             'city',
             'country',
-            'phone_number',
-            'picture',
             'languages',
             'created_at',
             'updated_at'

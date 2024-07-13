@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from rest_framework import generics, permissions
 from doctor_profiles.models import Doctor
 from doctor_profiles.serializers import (
@@ -28,3 +29,4 @@ class ManageProfileView(generics.RetrieveUpdateDestroyAPIView):
     def get_object(self):
         """Restricts users to manage only their own profile"""
         return self.request.user.profile
+

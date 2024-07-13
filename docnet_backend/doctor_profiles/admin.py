@@ -5,10 +5,9 @@ from doctor_profiles.models import Doctor
 
 @admin.register(Doctor)
 class DoctorAdmin(admin.ModelAdmin):
-    list_display = ['user', 'first_name', 'last_name', 'speciality',
+    list_display = ['user', 'speciality',
                     'years_of_experience', 'license_number']
-    search_fields = ['first_name', 'last_name',
-                     'speciality', 'years_of_experience',]
+    search_fields = ['user', 'speciality', 'years_of_experience',]
     readonly_fields = ['id', 'user', 'created_at', 'updated_at']
 
     fieldsets = (
@@ -25,16 +24,12 @@ class DoctorAdmin(admin.ModelAdmin):
             _('Personal Information'),
             {
                 'fields': (
-                    'first_name',
-                    'last_name',
                     'bio',
                     'gender',
                     'address',
                     'zip_code',
                     'city',
                     'country',
-                    'phone_number',
-                    'picture',
                     'languages',
                 )
             }
@@ -80,16 +75,12 @@ class DoctorAdmin(admin.ModelAdmin):
             {
                 'classes': ('wide',),
                 'fields': (
-                    'first_name',
-                    'last_name',
                     'bio',
                     'gender',
                     'address',
                     'zip_code',
                     'city',
                     'country',
-                    'phone_number',
-                    'picture',
                     'languages',
                 )
             }
