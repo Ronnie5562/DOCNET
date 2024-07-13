@@ -12,6 +12,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include('rest_framework.urls')),
     path("api/users/", include("accounts.urls")),
+    path("api/utils/", include("utils.urls")),
     path("api/doctors/", include("doctor_profiles.urls")),
     path("api/patients/", include("patient_profiles.urls")),
     path(
