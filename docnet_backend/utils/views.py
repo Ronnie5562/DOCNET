@@ -21,7 +21,8 @@ class TimezoneListView(APIView):
             timezone = pytz.timezone(tz)
             offset = datetime.now(timezone).strftime('%z')
             formatted_offset = f"GMT {offset[:3]}:{offset[3:]}"
-            timezone_offsets.append([tz, f"{formatted_offset} {tz}"])
+            timezone_offsets.append(
+                {"value": tz, "label": f"{formatted_offset} {tz}"})
 
         return Response(timezone_offsets)
 
