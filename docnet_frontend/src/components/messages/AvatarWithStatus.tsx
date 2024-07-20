@@ -1,4 +1,4 @@
-import Badge from '@mui/joy/Badge';
+import Badge, { badgeClasses } from '@mui/joy/Badge';
 import Avatar, { AvatarProps } from '@mui/joy/Avatar';
 
 type AvatarWithStatusProps = AvatarProps & {
@@ -10,11 +10,35 @@ export default function AvatarWithStatus(props: AvatarWithStatusProps) {
     return (
         <div>
             <Badge
-                color={online ? 'success' : 'neutral'}
-                variant={online ? 'solid' : 'soft'}
-                size="sm"
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                badgeInset="4px 4px"
+                badgeInset="14%"
+                color="success"
+                sx={{
+                    [`& .${badgeClasses.badge}`]: {
+                        '&::after': {
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%',
+                            borderRadius: '50%',
+                            animation: 'ripple 1.2s infinite ease-in-out',
+                            border: '2px solid',
+                            borderColor: 'success.500',
+                            content: '""',
+                        },
+                    },
+                    '@keyframes ripple': {
+                        '0%': {
+                            transform: 'scale(1)',
+                            opacity: 1,
+                        },
+                        '100%': {
+                            transform: 'scale(2)',
+                            opacity: 0,
+                        },
+                    },
+                }}
             >
                 <Avatar size="sm" {...other} />
             </Badge>

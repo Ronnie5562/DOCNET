@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import AspectRatio from '@mui/joy/AspectRatio';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
@@ -40,13 +42,44 @@ import useProfileService from '../../../services/ProfileServices';
 import useAxiosWithJwtInterceptor from "../../../helpers/jwtinterceptor";
 
 import { UserAccountDataType } from "../../../@types/profile.service";
+import { Grid, MenuItem } from "@mui/material";
+import useUtilService from "../../../services/UtilityService";
+import { TimezoneType } from "../../../@types/utils-service";
 
 
 const Profile = () => {
     const [accountDetails, setAccountDetails] = useState<UserAccountDataType | null>(null);
     const [profileDetails, setProfileDetails] = useState(null);
     const { getUserProfileDetails, getUserAccountDetails } = useProfileService();
+    const { getCountries, getTimezones } = useUtilService();
+
     const jwtAxios = useAxiosWithJwtInterceptor();
+
+    const [countries, setCountries] = useState([]);
+    const [timezones, setTimezones] = useState([]);
+
+    useEffect(() => {
+        const fetchCountries = async () => {
+            try {
+                const response = await getCountries();
+                setCountries(response);
+            } catch (error) {
+                console.error("Error fetching countries", error);
+            }
+        };
+
+        const fetchTimezones = async () => {
+            try {
+                const response = await getTimezones();
+                setTimezones(response);
+            } catch (error) {
+                console.error("Error fetching timezones", error);
+            }
+        };
+
+        fetchCountries();
+        fetchTimezones();
+    }, []);
 
     useEffect(() => {
         const fetchAccountDetails = async () => {
@@ -70,6 +103,46 @@ const Profile = () => {
         fetchAccountDetails();
         fetchProfileDetails();
     }, []);
+
+
+    const account_formik = useFormik({
+        initialValues: {
+            first_name: "",
+            last_name: "",
+            email: "",
+            role: "",
+            phone_number: "",
+            country: "",
+            timezone: "",
+        },
+        validationSchema: Yup.object({
+            first_name: Yup.string().required("Required"),
+            last_name: Yup.string().required("Required"),
+            email: Yup.string().required("Required"),
+            role: Yup.string().required("Required"),
+            country: Yup.string().required("Required"),
+            // timezone: Yup.string().required("Required"),
+        }),
+        onSubmit: async (values) => {
+            alert(values);
+        },
+        validateOnChange: true,
+        // enableReinitialize: true,
+    });
+
+    useEffect(() => {
+        if (accountDetails) {
+            account_formik.setValues({
+                first_name: accountDetails.first_name,
+                last_name: accountDetails.last_name,
+                role: accountDetails.role,
+                email: accountDetails.email,
+                phone_number: accountDetails.phone_number || '',
+                country: accountDetails?.country || '',
+                timezone: accountDetails?.timezone || '',
+            });
+        }
+    }, [accountDetails, profileDetails]);
 
     return (
         <Box sx={{ flex: 1, width: '100%' }}>
@@ -103,7 +176,6 @@ const Profile = () => {
                     <Typography level="h2" component="h1" sx={{ mt: 1, mb: 2 }}>
                         Profile {accountDetails?.email}
                     </Typography>
-
                 </Box>
                 <Tabs
                     defaultValue={0}
@@ -170,248 +242,174 @@ const Profile = () => {
                     py: { xs: 2, md: 3 },
                 }}
             >
-                <Card id="account">
+                <Card id="account" component="form" onSubmit={account_formik.handleSubmit}>
                     <Box sx={{ mb: 1 }}>
                         <Typography level="title-md"> Account Information</Typography>
                         <Typography level="body-sm">
-                            Customize how your profile information will apper to the networks.
+                            Customize how your account information will apper to your Doctors.
                         </Typography>
                     </Box>
                     <Divider />
-                    <Stack
-                        direction="row"
-                        spacing={3}
-                        sx={{ display: { xs: 'none', md: 'flex' }, my: 1 }}
-                    >
-                        <Stack direction="column" spacing={1}>
-                            <AspectRatio
-                                ratio="1"
-                                maxHeight={200}
-                                sx={{ flex: 1, minWidth: 120, borderRadius: '100%' }}
-                            >
-                                <img
-                                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286"
-                                    srcSet="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286&dpr=2 2x"
-                                    loading="lazy"
-                                    alt=""
-                                />
-                            </AspectRatio>
-                            <IconButton
-                                aria-label="upload new picture"
-                                size="sm"
-                                variant="outlined"
-                                color="neutral"
-                                sx={{
-                                    bgcolor: 'background.body',
-                                    position: 'absolute',
-                                    zIndex: 2,
-                                    borderRadius: '50%',
-                                    left: 100,
-                                    top: 170,
-                                    boxShadow: 'sm',
-                                }}
-                            >
-                                <EditRoundedIcon />
-                            </IconButton>
-                        </Stack>
-                        <Stack spacing={2} sx={{ flexGrow: 1 }}>
-                            <Stack spacing={1}>
-                                <FormLabel>Name</FormLabel>
-                                <FormControl
-                                    sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
-                                >
-                                    <Input size="sm" placeholder="First name" />
-                                </FormControl>
-                                <FormControl
-                                    sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
-                                >
-                                    <Input size="sm" placeholder="Last name" sx={{ flexGrow: 1 }} />
-                                </FormControl>
-                            </Stack>
-                            <Stack direction="row" spacing={2}>
-                                <FormControl>
-                                    <FormLabel>Role</FormLabel>
-                                    <Input size="sm" defaultValue="Patient" readOnly />
-                                </FormControl>
-                                <FormControl sx={{ flexGrow: 1 }}>
-                                    <FormLabel>Email</FormLabel>
-                                    <Input
-                                        size="sm"
-                                        type="email"
-                                        startDecorator={<EmailRoundedIcon />}
-                                        placeholder="email"
-                                        defaultValue="siriwatk@test.com"
-                                        sx={{ flexGrow: 1 }}
-                                        readOnly
-                                    />
-                                </FormControl>
-                            </Stack>
-                            <Stack direction="row" spacing={2}>
-                                <FormControl sx={{ flexGrow: 1 }}>
-                                    <FormLabel>Phone Number</FormLabel>
-                                    <Input
-                                        size="sm"
-                                        type="phone"
-                                        startDecorator={<PhoneRoundedIcon />}
-                                        placeholder="phone"
-                                        defaultValue="+250792525545"
-                                        sx={{ flexGrow: 1 }}
-                                    />
-                                </FormControl>
-                            </Stack>
-                            <div>
-                                <CountrySelector />
-                            </div>
-                            <div>
-                                <FormControl sx={{ display: { sm: 'contents' } }}>
-                                    <FormLabel>Timezone</FormLabel>
-                                    <Select
-                                        size="sm"
-                                        startDecorator={<AccessTimeFilledRoundedIcon />}
-                                        defaultValue="1"
+                    <Stack sx={{ my: 1 }}>
+                        <Grid container spacing={3}>
+                            <Grid item xs={12} md={3}>
+                                <Box sx={{ position: 'relative', textAlign: 'center' }}>
+                                    <AspectRatio
+                                        ratio="1"
+                                        sx={{
+                                            width: { xs: 120, md: 130 },
+                                            height: { xs: 120, md: 130 },
+                                            borderRadius: '100%',
+                                            margin: '0 auto',
+                                        }}
                                     >
-                                        <Option value="1">
-                                            Indochina Time (Bangkok){' '}
-                                            <Typography textColor="text.tertiary" ml={0.5}>
-                                                — GMT+07:00
-                                            </Typography>
-                                        </Option>
-                                        <Option value="2">
-                                            Indochina Time (Ho Chi Minh City){' '}
-                                            <Typography textColor="text.tertiary" ml={0.5}>
-                                                — GMT+07:00
-                                            </Typography>
-                                        </Option>
-                                    </Select>
-                                </FormControl>
-                            </div>
-                        </Stack>
+                                        <img
+                                            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286"
+                                            srcSet="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286&dpr=2 2x"
+                                            loading="lazy"
+                                            alt=""
+                                        />
+                                    </AspectRatio>
+                                    {/* <IconButton
+                                        aria-label="upload new picture"
+                                        size="sm"
+                                        variant="outlined"
+                                        color="neutral"
+                                        sx={{
+                                            bgcolor: 'background.body',
+                                            position: 'absolute',
+                                            zIndex: 2,
+                                            borderRadius: '50%',
+                                            left: { xs: '50%', md: 100 },
+                                            top: { xs: 180, md: 170 },
+                                            transform: { xs: 'translateX(-50%)', md: 'none' },
+                                            boxShadow: 'sm',
+                                        }}
+                                    >
+                                        <EditRoundedIcon />
+                                    </IconButton> */}
+                                </Box>
+                            </Grid>
+                            <Grid item xs={12} md={9} sx={{ flexGrow: 1 }}>
+                                <Stack spacing={2}>
+                                    <Stack spacing={1}>
+                                        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
+                                            <FormControl sx={{ flexGrow: 1 }}>
+                                                <FormLabel>First Name</FormLabel>
+                                                <Input
+                                                    size="sm"
+                                                    name="first_name"
+                                                    placeholder="First name"
+                                                    onChange={account_formik.handleChange}
+                                                    value={account_formik.values.first_name}
+                                                    error={
+                                                        !!account_formik.touched.first_name && !!account_formik.errors.first_name
+                                                    }
+                                                />
+                                            </FormControl>
+                                            <FormControl sx={{ flexGrow: 1 }}>
+                                                <FormLabel>Last Name</FormLabel>
+                                                <Input
+                                                    size="sm"
+                                                    name="last_name"
+                                                    placeholder="Last name"
+                                                    value={account_formik.values.last_name}
+                                                    onChange={account_formik.handleChange}
+                                                    error={
+                                                        !!account_formik.touched.last_name && !!account_formik.errors.last_name
+                                                    }
+                                                />
+                                            </FormControl>
+                                        </Box>
+                                    </Stack>
+                                    <Stack direction="row" spacing={2}>
+                                        <FormControl sx={{ flexGrow: 1 }}>
+                                            <FormLabel>Role</FormLabel>
+                                            <Input
+                                                size="sm"
+                                                onChange={account_formik.handleChange}
+                                                value={account_formik.values.role}
+                                                error={
+                                                    !!account_formik.touched.role && !!account_formik.errors.role
+                                                }
+                                                readOnly
+                                            />
+                                        </FormControl>
+                                        <FormControl sx={{ flexGrow: 1 }}>
+                                            <FormLabel>Email</FormLabel>
+                                            <Input
+                                                size="sm"
+                                                type="email"
+                                                startDecorator={<EmailRoundedIcon />}
+                                                placeholder="email"
+                                                defaultValue="siriwatk@test.com"
+                                                sx={{ flexGrow: 1 }}
+                                                onChange={account_formik.handleChange}
+                                                value={account_formik.values.email}
+                                                error={
+                                                    !!account_formik.touched.email && !!account_formik.errors.email
+                                                }
+                                                readOnly
+                                            />
+                                        </FormControl>
+                                    </Stack>
+                                    <Stack direction="row" spacing={2}>
+                                        <FormControl sx={{ flexGrow: 1 }}>
+                                            <FormLabel>Phone Number</FormLabel>
+                                            <Input
+                                                size="sm"
+                                                type="phone"
+                                                name="phone_number"
+                                                startDecorator={<PhoneRoundedIcon />}
+                                                placeholder="phone"
+                                                sx={{ flexGrow: 1 }}
+                                                onChange={account_formik.handleChange}
+                                                value={account_formik.values.phone_number}
+                                                error={
+                                                    !!account_formik.touched.phone_number && !!account_formik.errors.phone_number
+                                                }
+                                            />
+                                        </FormControl>
+                                    </Stack>
+                                    <Stack direction="row" spacing={2}>
+                                        <FormControl sx={{ flexGrow: 1 }}>
+                                            <CountrySelector />
+                                        </FormControl>
+                                    </Stack>
+                                    <Stack direction="row" spacing={2}>
+                                        <FormControl sx={{ flexGrow: 1 }}>
+                                            <FormLabel>Timezone</FormLabel>
+                                            <Select
+                                                size="sm"
+                                                startDecorator={<AccessTimeFilledRoundedIcon />}
+                                                name="timezone"
+                                                onChange={account_formik.handleChange}
+                                                value={account_formik.values.timezone}
+                                            >
+                                                {/* {
+                                                    timezones.map((timezone: TimezoneType) => (
+                                                        <Option key={timezone.value} value={timezone.value}>
+                                                            {timezone.label}
+                                                            <Typography textColor="text.tertiary" ml={0.5}>
+                                                            </Typography>
+                                                        </Option>
+                                                    ))
+                                                } */}
+                                            </Select>
+                                        </FormControl>
+                                    </Stack>
+                                </Stack>
+                            </Grid>
+                        </Grid>
                     </Stack>
-                    <Stack
-                        direction="column"
-                        spacing={2}
-                        sx={{ display: { xs: 'flex', md: 'none' }, my: 1 }}
-                    >
-                        <Stack direction="row" spacing={2}>
-                            <Stack direction="column" spacing={1}>
-                                <AspectRatio
-                                    ratio="1"
-                                    maxHeight={108}
-                                    sx={{ flex: 1, minWidth: 108, borderRadius: '100%' }}
-                                >
-                                    <img
-                                        src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286"
-                                        srcSet="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286&dpr=2 2x"
-                                        loading="lazy"
-                                        alt=""
-                                    />
-                                </AspectRatio>
-                                <IconButton
-                                    aria-label="upload new picture"
-                                    size="sm"
-                                    variant="outlined"
-                                    color="neutral"
-                                    sx={{
-                                        bgcolor: 'background.body',
-                                        position: 'absolute',
-                                        zIndex: 2,
-                                        borderRadius: '50%',
-                                        left: 85,
-                                        top: 180,
-                                        boxShadow: 'sm',
-                                    }}
-                                >
-                                    <EditRoundedIcon />
-                                </IconButton>
-                            </Stack>
-                            <Stack spacing={1} sx={{ flexGrow: 1 }}>
-                                <FormLabel>Name</FormLabel>
-                                <FormControl
-                                    sx={{
-                                        display: {
-                                            sm: 'flex-column',
-                                            md: 'flex-row',
-                                        },
-                                        gap: 2,
-                                    }}
-                                >
-                                    <Input size="sm" placeholder="First name" />
-                                </FormControl>
-                                <FormControl
-                                    sx={{
-                                        display: {
-                                            sm: 'flex-column',
-                                            md: 'flex-row',
-                                        },
-                                        gap: 2,
-                                    }}
-                                >
-                                    <Input size="sm" placeholder="Last name" />
-                                </FormControl>
-                            </Stack>
-                        </Stack>
-                        <FormControl>
-                            <FormLabel>Role</FormLabel>
-                            <Input size="sm" defaultValue="Patient" readOnly />
-                        </FormControl>
-                        <FormControl sx={{ flexGrow: 1 }}>
-                            <FormLabel>Email</FormLabel>
-                            <Input
-                                size="sm"
-                                type="email"
-                                startDecorator={<EmailRoundedIcon />}
-                                placeholder="email"
-                                defaultValue="siriwatk@test.com"
-                                sx={{ flexGrow: 1 }}
-                                readOnly
-                            />
-                        </FormControl>
-                        <Stack direction="row" spacing={2}>
-                            <FormControl sx={{ flexGrow: 1 }}>
-                                <FormLabel>Phone Number</FormLabel>
-                                <Input
-                                    size="sm"
-                                    type="phone"
-                                    startDecorator={<PhoneRoundedIcon />}
-                                    placeholder="phone"
-                                    defaultValue="+250792525545"
-                                    sx={{ flexGrow: 1 }}
-                                />
-                            </FormControl>
-                        </Stack>
-                        <div>
-                            <CountrySelector />
-                        </div>
-                        <div>
-                            <FormControl sx={{ display: { sm: 'contents' } }}>
-                                <FormLabel>Timezone</FormLabel>
-                                <Select
-                                    size="sm"
-                                    startDecorator={<AccessTimeFilledRoundedIcon />}
-                                    defaultValue="1"
-                                >
-                                    <Option value="1">
-                                        Indochina Time (Bangkok){' '}
-                                        <Typography textColor="text.tertiary" ml={0.5}>
-                                            — GMT+07:00
-                                        </Typography>
-                                    </Option>
-                                    <Option value="2">
-                                        Indochina Time (Ho Chi Minh City){' '}
-                                        <Typography textColor="text.tertiary" ml={0.5}>
-                                            — GMT+07:00
-                                        </Typography>
-                                    </Option>
-                                </Select>
-                            </FormControl>
-                        </div>
-                    </Stack>
+
                     <CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
                         <CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
                             <Button size="sm" variant="outlined" color="neutral">
                                 Cancel
                             </Button>
-                            <Button size="sm" variant="solid">
+
+                            <Button size="sm" variant="solid" type="submit">
                                 Save
                             </Button>
                         </CardActions>

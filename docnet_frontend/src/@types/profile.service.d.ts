@@ -25,6 +25,7 @@ export interface UserAccountDataType {
     first_name: string,
     last_name: string,
     phone_number: string,
+    country: string,
     picture: string,
     date_joined: string
 }
@@ -39,7 +40,20 @@ export interface DocumentType {
 };
 
 export interface PatientProfileDataType {
-
+    id: string;
+    user: UserAccountData;
+    bio: string;
+    date_of_birth: string;
+    gender: string;
+    address: string;
+    zip_code: string;
+    city: string;
+    country: string;
+    languages: Record<string, string>;
+    medical_history: string;
+    allergies: string;
+    current_medications: string;
+    documents: DocumentType[];
 }
 
 export interface DoctorProfileDataType {
@@ -53,8 +67,6 @@ export interface DoctorProfileDataType {
     city: string;
     country: string;
     languages: Record<string, string>;
-    created_at: string;
-    updated_at: string;
     speciality: string;
     license_number: string;
     years_of_experience: number;
@@ -62,5 +74,5 @@ export interface DoctorProfileDataType {
     certifications: string;
     awards: string;
     professional_statement: string;
-    documents: Document[];
+    documents: DocumentType[];
 }
