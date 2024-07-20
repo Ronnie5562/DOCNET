@@ -25,6 +25,7 @@ export interface UserAccountDataType {
     first_name: string,
     last_name: string,
     phone_number: string,
+    country: string,
     picture: string,
     date_joined: string
 }
