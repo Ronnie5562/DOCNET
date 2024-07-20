@@ -17,4 +17,5 @@ class AppointmentSerializer(serializers.ModelSerializer):
 
     def get_medical_record(self, obj):
         medical_record = MedicalRecord.objects.get(appointment=obj)
-        return reverse("medical-record-detail", kwargs={"id": medical_record.id})
+        return reverse(
+            "medical-record-detail", kwargs={"id": medical_record.id})

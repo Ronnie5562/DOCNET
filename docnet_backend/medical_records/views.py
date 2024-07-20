@@ -11,7 +11,7 @@ class ALLMedicaRecordListView(generics.ListAPIView):
 
 
 class UserMedicalRecordListView(
-    ALLMedicaRecordListView, generics.CreateAPIView):
+        ALLMedicaRecordListView, generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
