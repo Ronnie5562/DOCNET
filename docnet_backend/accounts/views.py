@@ -60,7 +60,6 @@ class ManageProfileView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_object(self):
         """Restricts users to manage only their own profile"""
-        print(self.request.headers)
         return self.request.user
 
 
@@ -100,7 +99,6 @@ class LogOutAPIView(APIView):
 
 class JWTSetCookieMixin:
     def finalize_response(self, request, response, *args, **kwargs):
-        print(request.headers)
         if response.data.get("refresh"):
             response.set_cookie(
                 settings.SIMPLE_JWT["REFRESH_TOKEN_NAME"],

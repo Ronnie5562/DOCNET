@@ -4,6 +4,20 @@ from django_countries.fields import Country
 from accounts.serializers import UserSerializer
 
 
+class DocumentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = None
+        fields = (
+            'id',
+            'caption',
+            'file',
+            'profile',
+            'uploaded_at',
+            'modified_at'
+        )
+        read_only_fields = ('id', 'profile', 'uploaded_at', 'modified_at')
+
+
 class ProfileListSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
 
@@ -28,7 +42,7 @@ class CountryFieldSerializer(serializers.Field):
 
 class ProfileDetailSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
-    country = CountryFieldSerializer()
+    # country = CountryFieldSerializer()
 
     class Meta:
         model = Profile

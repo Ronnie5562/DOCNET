@@ -1,23 +1,15 @@
 from rest_framework import serializers
-from profiles.serializaers import (
+from profiles.serializers import (
     ProfileListSerializer,
     ProfileDetailSerializer
 )
 from patient_profiles.models import Patient, Document
+from profiles.serializers import DocumentSerializer
 
 
-class DocumentSerializer(serializers.ModelSerializer):
-    class Meta:
+class PatientDocumentSerializer(DocumentSerializer):
+    class Meta(DocumentSerializer.Meta):
         model = Document
-        fields = (
-            'id',
-            'caption',
-            'file',
-            'profile',
-            'uploaded_at',
-            'modified_at'
-        )
-        read_only_fields = ('id', 'profile', 'uploaded_at', 'modified_at')
 
 
 class PatientProfileListSerializer(ProfileListSerializer):
@@ -27,7 +19,7 @@ class PatientProfileListSerializer(ProfileListSerializer):
 
 
 class PatientProfileDetailSerializer(ProfileDetailSerializer):
-    documents = DocumentSerializer(many=True, required=False)
+    documents = PatientDocumentSerializer(many=True, required=False)
 
     class Meta(ProfileDetailSerializer.Meta):
         model = Patient
