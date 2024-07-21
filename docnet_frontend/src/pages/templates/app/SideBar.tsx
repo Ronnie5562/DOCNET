@@ -178,8 +178,8 @@ const SideBar = () => {
                         <ListItemButton
                             role="menuitem"
                             component="a"
-                            href="/appointment"
-                            selected={isActive('/appointment')}
+                            href="/appointments"
+                            selected={isActive('/appointments')}
                         >
                             <LocalHospitalIcon />
                             <ListItemContent>

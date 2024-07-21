@@ -1,14 +1,11 @@
 import Typography from '@mui/joy/Typography';
-import { Avatar, Box, Breadcrumbs, Input, Link, Tab, TabList, Tabs } from "@mui/joy";
+import { Avatar, Box, Breadcrumbs, Input, Link } from "@mui/joy";
 import UserCard from "../../../components/app/userCard";
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import SpecialityCard from '../../../components/app/SpecialityCard';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
-
-
 import Container from '@mui/material/Container';
-
 import { styled } from '@mui/material/styles';
 // import ScrollAnimation from 'react-animate-on-scroll';
 
@@ -145,7 +142,7 @@ const HomeTemplate = () => {
                 </Box>
                 <Box
                     id="hero"
-                    sx={(theme) => ({
+                    sx={() => ({
                         width: '100%',
                         backgroundRepeat: 'no-repeat',
                     })}
