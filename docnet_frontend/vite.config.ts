@@ -11,18 +11,3 @@ export default defineConfig({
     },
   }
 })
-// export default defineConfig({
-//   plugins: [react()],
-//   resolve: {
-//     alias: {
-//       "@": path.resolve(__dirname, "./src"),
-//       "date-fns": path.resolve(__dirname, "node_modules/date-fns/esm"),
-//     },
-//   },
-//   optimizeDeps: {
-//     include: [
-//       'date-fns',
-//       'date-fns/_lib/format/longFormatters',
-//     ],
-//   },
-// })

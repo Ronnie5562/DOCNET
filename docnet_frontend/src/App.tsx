@@ -7,7 +7,6 @@ import ProtectedRoute from "./services/ProtectedRoute";
 import Messages from "./pages/app/Messages";
 import Profile from "./pages/app/Profile";
 import Home from "./pages/app/Home";
-import Scheduler from "./pages/app/Appointment";
 
 
 const App = () => {
@@ -42,14 +41,6 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <Messages />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/appointments"
-            element={
-              <ProtectedRoute>
-                <Scheduler />
               </ProtectedRoute>
             }
           />
