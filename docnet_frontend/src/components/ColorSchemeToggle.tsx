@@ -5,9 +5,10 @@ import IconButton, { IconButtonProps } from '@mui/joy/IconButton';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeIcon from '@mui/icons-material/LightMode';
 
-export default function ColorSchemeToggle(props: IconButtonProps) {
-    const { onClick, sx, ...other } = props;
+
+const ColorSchemeToggle = (props: IconButtonProps) => {
     const { mode, setMode } = useColorScheme();
+    const { onClick, sx, ...other } = props;
     const [mounted, setMounted] = React.useState(false);
     React.useEffect(() => {
         setMounted(true);
@@ -56,3 +57,5 @@ export default function ColorSchemeToggle(props: IconButtonProps) {
         </IconButton>
     );
 }
+
+export default ColorSchemeToggle;
