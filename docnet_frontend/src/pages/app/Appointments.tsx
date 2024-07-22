@@ -7,13 +7,14 @@ import AppointmentBooking from '@/components/appointments/AppointmentBooking';
 import { Experimental_CssVarsProvider as MaterialCssVarsProvider } from '@mui/material/styles';
 import { extendTheme as extendJoyTheme, THEME_ID } from '@mui/joy/styles';
 const joyTheme = extendJoyTheme();
+import { useColorScheme } from '@mui/joy/styles';
 
 
 const Appointments = () => {
     return (
         <MaterialCssVarsProvider>
             <CssVarsProvider theme={{ [THEME_ID]: joyTheme }}>
-                <CssBaseline />
+                <CssBaseline enableColorScheme />
                 <Box sx={{ display: 'flex', minHeight: '100dvh' }}>
                     <Sidebar />
                     <Header />

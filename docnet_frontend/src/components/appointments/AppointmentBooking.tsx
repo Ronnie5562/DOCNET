@@ -13,7 +13,7 @@ const AppointmentBooking = () => {
                     sx={{
                         position: 'sticky',
                         // top: { sm: -100, md: -110 },
-                        top: -50,
+                        top: -60,
                         bgcolor: 'background.body',
                         zIndex: 9995,
                     }}
