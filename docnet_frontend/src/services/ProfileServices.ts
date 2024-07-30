@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ProfileServiceProps } from "../@types/profile.service";
+import { ProfileServiceProps } from "../@types/profile-service";
 import { useState } from "react";
 import { BASE_URL } from "../config";
 import { useNavigate } from "react-router-dom";

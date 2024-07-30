@@ -50,8 +50,6 @@ export function useAuthService(): AuthServiceProps {
             }, { withCredentials: true }
             );
 
-            console.log(response.data)
-
             const user_id = response.data.user_id
             localStorage.setItem("user_id", user_id)
 
@@ -62,7 +60,7 @@ export function useAuthService(): AuthServiceProps {
 
             // I used setTimeout to delay the navigation to the profile page
             // So that the data I need to store in localstorage is available
-            setTimeout(() => navigate("/profile"), 100)
+            setTimeout(() => navigate("/"), 200)
         } catch (err: any) {
             return err.response.status;
         }
@@ -111,7 +109,9 @@ export function useAuthService(): AuthServiceProps {
 
         try {
             await axios.post(
-                `${BASE_URL}/users/logout/`, {} , {withCredentials:true}
+                `${BASE_URL}/users/logout/`,
+                {},
+                { withCredentials:true }
             )
         } catch (refreshError) {
             return Promise.reject(refreshError)
