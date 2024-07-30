@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import Typography from '@mui/joy/Typography';
 import { Avatar, Box, Breadcrumbs, Input, Link } from "@mui/joy";
 import UserCard from "../../../components/app/userCard";
@@ -7,6 +8,9 @@ import SpecialityCard from '../../../components/app/SpecialityCard';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import Container from '@mui/material/Container';
 import { styled } from '@mui/material/styles';
+import useHomeService from '@/services/HomeServices';
+import { DoctorCardDetailsProps, DoctorListType } from '@/@types/home-service';
+
 // import ScrollAnimation from 'react-animate-on-scroll';
 
 const StyledBox = styled('div')(({ theme }) => ({
@@ -43,6 +47,15 @@ const BackgroundVideo = styled('video')({
 
 
 const HomeTemplate = () => {
+    const [doctorList, setDoctorList] = useState<any>([]);
+    const { getDoctorsList } = useHomeService();
+
+    useEffect(() => {
+        getDoctorsList().then((data: DoctorListType) => {
+            setDoctorList(data.results);
+        })
+    }, [])
+
     return (
         <>
             <Box sx={{ flex: 1, width: '100%' }}>
@@ -82,7 +95,7 @@ const HomeTemplate = () => {
                             {
                                 <Avatar
                                     alt="Remy Sharp"
-                                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286"
+                                    src="https://cdn.pixabay.com/photo/2015/03/28/16/29/business-696076_1280.jpg"
                                     sx={{
                                         "--Avatar-size": "30px"
                                     }}
@@ -99,7 +112,7 @@ const HomeTemplate = () => {
                     </Box>
                 </Box>
                 <Box
-                    sx={{ display: 'flex', justifyContent: 'space-between', px: 15, mt: -1, mb: -5 }}
+                    sx={{ display: 'flex', justifyContent: 'space-between', px: { xs: 2, sm: 5, lg: 15 }, mt: -1, mb: -5 }}
                 >
                     <Box>
                         <Box
@@ -115,7 +128,7 @@ const HomeTemplate = () => {
                             {
                                 <Avatar
                                     alt="Remy Sharp"
-                                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286"
+                                    src="https://cdn.pixabay.com/photo/2015/03/28/16/29/business-696076_1280.jpg"
                                     sx={{
                                         "--Avatar-size": "55px"
                                     }}
@@ -130,10 +143,10 @@ const HomeTemplate = () => {
                             }
                             <Box>
                                 <Typography level="h4" component="h4">
-                                    Hello, Sophia!
+                                    Hello, {localStorage.getItem('first_name')}
                                 </Typography>
-                                <Typography component="p" sx={{ display: { xs: "none", md: "block" }, fontSize: '12px' }} >
-                                    Welcome to our telehealth platform. How can we help you today?
+                                <Typography component="p" sx={{ fontSize: '12px' }} >
+                                    Welcome to our DocNet. How can we help you today?
                                 </Typography>
                             </Box>
                         </Box>
@@ -157,11 +170,11 @@ const HomeTemplate = () => {
                     >
                         <StyledBox id="video-container">
                             {/* <ScrollAnimation animateIn="fadeIn" duration={3} animateOnce={true}> */}
-                                <BackgroundVideo autoPlay muted loop>
-                                    {/* <source src="https://videos.pexels.com/video-files/8375656/8375656-uhd_2732_1440_25fps.mp4" type="video/mp4" /> */}
-                                    <source src="https://videos.pexels.com/video-files/5453565/5453565-uhd_2560_1440_25fps.mp4" type="video/mp4" />
-                                    Your browser does not support the video tag.
-                                </BackgroundVideo>
+                            <BackgroundVideo autoPlay muted loop>
+                                {/* <source src="https://videos.pexels.com/video-files/8375656/8375656-uhd_2732_1440_25fps.mp4" type="video/mp4" /> */}
+                                <source src="https://videos.pexels.com/video-files/5453565/5453565-uhd_2560_1440_25fps.mp4" type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </BackgroundVideo>
                             {/* </ScrollAnimation> */}
                         </StyledBox>
                     </Container>
@@ -174,7 +187,7 @@ const HomeTemplate = () => {
                 <Box sx={{
                     display: { xs: 'block', md: 'flex' },
                     p: 3,
-                    justifyContent: { xs: 'center',  sm: 'space-around' },
+                    justifyContent: { xs: 'center', sm: 'space-around' },
                     alignItems: "center"
 
                 }}>
@@ -206,14 +219,41 @@ const HomeTemplate = () => {
                     </Box>
                 </Box>
                 <Box sx={{ display: 'flex', gap: 3, flexWrap: 'wrap', justifyContent: 'center' }}>
-                    <UserCard />
-                    <UserCard />
-                    <UserCard />
-                    <UserCard />
-                    <UserCard />
-                    <UserCard />
-                    <UserCard />
-                    <UserCard />
+                    {/* {
+                        doctorList.map((doctor: DoctorCardDetailsProps) => {
+                            return (
+                                <UserCard
+                                    key={doctor.id}
+                                    doctor={doctor}
+                                    appointmentPage={false}
+                                />
+                            )
+
+                        })
+                    } */}
+
+                    {
+                        doctorList && doctorList.length > 0
+                            ?
+                            doctorList.map((doctor: DoctorCardDetailsProps, index: number) => (
+                                <UserCard
+                                    key={doctor.id}
+                                    doctor={doctor}
+                                    appointmentPage={false}
+                                    id={`${Date.now()}-${Math.random()}`}
+                                // id={index.toString()}
+                                />
+                            ))
+                            :
+                            Array.from(new Array(5)).map((i, v) => (
+                                <UserCard
+                                    key={v}
+                                    doctor={null}
+                                    appointmentPage={false}
+                                    id={v.toString()}
+                                />
+                            ))
+                    }
                 </Box>
             </Box>
 

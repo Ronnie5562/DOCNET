@@ -3,7 +3,7 @@ import CssBaseline from '@mui/joy/CssBaseline';
 import Box from '@mui/joy/Box';
 import Sidebar from '../templates/app/SideBar';
 import Header from '../templates/app/Header';
-import MyProfile from '../templates/app/Profile';
+import MyProfile from '../templates/app/UserProfile';
 
 const Profile = () => {
     return (

@@ -183,7 +183,7 @@ const Register = () => {
                             </Link>
                         </Box>
                         <Button type="submit" fullWidth sx={{ mt: 1, mb: 2 }}>
-                            Sign in
+                            Sign Up
                         </Button>
                     </Stack>
                 </Box>
