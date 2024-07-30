@@ -11,3 +11,11 @@ class MedicalRecordSerializer(serializers.ModelSerializer):
             'id', 'issued_date', 'modified_date',
             'doctor', 'patient', 'appointment_date'
         )
+
+
+class AppointmentMedicalRecordSerializer(MedicalRecordSerializer):
+    class Meta(MedicalRecordSerializer.Meta):
+        fields = (
+            'id', 'diagnosis', 'symptoms', 'treatment', 'notes',
+        )
+

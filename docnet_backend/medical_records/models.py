@@ -7,7 +7,8 @@ class MedicalRecord(models.Model):
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False
     )
-    appointment = models.OneToOneField(Appointment, on_delete=models.CASCADE)
+    appointment = models.OneToOneField(
+        Appointment, on_delete=models.CASCADE, related_name='medical_record')
     diagnosis = models.TextField()
     symptoms = models.TextField()
     treatment = models.TextField()
