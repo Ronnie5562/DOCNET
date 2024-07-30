@@ -87,6 +87,7 @@ class ActivateAccountAPIView(APIView):
 
 class LogOutAPIView(APIView):
     serializer_class = LogOutSerializer
+    # permission_classes = [permissions.AllowAny]
 
     def post(self, request, format=None):
         response = Response("Logged out successfully")
@@ -115,7 +116,7 @@ class JWTSetCookieMixin:
                 httponly=True,
                 samesite=settings.SIMPLE_JWT["JWT_COOKIE_SAMESITE"],
             )
-            del response.data["access"]
+            # del response.data["access"]
 
         return super().finalize_response(request, response, *args, **kwargs)
 
