@@ -21,6 +21,22 @@ import {
 
 
 
+const SPECIALITIES = [
+    'Cardiologist',
+    'Gastroenterologist',
+    'Hematologist',
+    'Neurologist',
+    'Oncologist',
+    'Ophthalmologist',
+    'Orthopedics',
+    'Pediatrics',
+    'Psychiatrist',
+    'Radiologist',
+    'Obstetrics and Gynecologist',
+    'General Practitioner'
+]
+
+
 export default function SpecialityCard() {
     return (
         <Carousel
@@ -30,7 +46,7 @@ export default function SpecialityCard() {
             className="w-full max-w-4xl mx-auto"
         >
             <CarouselContent>
-                {Array.from({ length: 20 }).map((_, index) => (
+                {SPECIALITIES.map((name, index) => (
                     <CarouselItem key={index} className="basis-1/2 sm:basis-1/5 md:basis-1/6">
                         <div className="p-1">
                             {/* <Card>
@@ -65,7 +81,7 @@ export default function SpecialityCard() {
                                         size="sm"
                                         sx={{ pointerEvents: 'none', mt: 2, ml: 1.3 }}
                                     >
-                                        DENTIST
+                                        {name}
                                     </Chip>
                                 </CardContent>
                             </Card>
