@@ -15,6 +15,7 @@ class Doctor(Profile):
     professional_statement = models.TextField(blank=True, null=True)
 
     class Meta:
+        ordering = ['-id']
         verbose_name = "Doctor"
         verbose_name_plural = "Doctors"
 

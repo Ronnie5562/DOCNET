@@ -5,10 +5,18 @@ from doctor_profiles.serializers import (
     DoctorProfileDetailSerializer
 )
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from utils.pagination import StandardResultsSetPagination
 
 
-class ProfileListView(generics.ListAPIView):
-    """View to list Doctor profiles"""
+class DoctorsListView(generics.ListAPIView):
+    """View to return many Doctor Card details"""
+    serializer_class = DoctorProfileListSerializer
+    pagination_class = StandardResultsSetPagination
+    queryset = Doctor.objects.all()
+
+
+class DoctorCardView(generics.RetrieveAPIView):
+    """View to return one Doctor Card details"""
     serializer_class = DoctorProfileListSerializer
     queryset = Doctor.objects.all()
 
