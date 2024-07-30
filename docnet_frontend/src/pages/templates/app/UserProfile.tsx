@@ -41,13 +41,13 @@ import EditorToolbar from '../../../components/profile/EditorToolbar';
 import useProfileService from '../../../services/ProfileServices';
 import useAxiosWithJwtInterceptor from "../../../helpers/jwtinterceptor";
 
-import { UserAccountDataType } from "../../../@types/profile.service";
+import { UserAccountDataType } from "../../../@types/profile-service";
 import { Grid, MenuItem } from "@mui/material";
 import useUtilService from "../../../services/UtilityService";
 import { TimezoneType } from "../../../@types/utils-service";
 
 
-const Profile = () => {
+const UserProfile = () => {
     const [accountDetails, setAccountDetails] = useState<UserAccountDataType | null>(null);
     const [profileDetails, setProfileDetails] = useState(null);
     const { getUserProfileDetails, getUserAccountDetails } = useProfileService();
@@ -264,8 +264,8 @@ const Profile = () => {
                                         }}
                                     >
                                         <img
-                                            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286"
-                                            srcSet="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286&dpr=2 2x"
+                                            src="https://cdn.pixabay.com/photo/2015/03/28/16/29/business-696076_1280.jpg"
+                                            srcSet="https://cdn.pixabay.com/photo/2015/03/28/16/29/business-696076_1280.jpg&dpr=2 2x"
                                             loading="lazy"
                                             alt=""
                                         />
@@ -485,4 +485,4 @@ const Profile = () => {
     );
 }
 
-export default Profile;
+export default UserProfile;
