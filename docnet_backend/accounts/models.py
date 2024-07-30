@@ -72,9 +72,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def save(self, *args, **kwargs):
         if self.picture:
-            file_path = profile_pic_file_path(self, self.picture.name)
-            upload(self.picture.file, public_id=file_path, overwrite=True)
-            self.picture = file_path
+            file_path = profile_pic_file_path(self, self.picture.public_id)
+            upload_file = upload(
+                file_path, public_id=self.picture.public_id, overwrite=True)
+            self.picture = upload_file['public_id']
 
         try:
             self.full_clean()
