@@ -27,7 +27,10 @@ class ProfileListSerializer(serializers.ModelSerializer):
             'id',
             'user',
         )
-        read_only_fields = ('id', 'user')
+        read_only_fields = (
+            'id',
+            'user'
+        )
 
 
 class CountryFieldSerializer(serializers.Field):
@@ -42,7 +45,7 @@ class CountryFieldSerializer(serializers.Field):
 
 class ProfileDetailSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
-    # country = CountryFieldSerializer()
+    country = CountryFieldSerializer()
 
     class Meta:
         model = Profile
