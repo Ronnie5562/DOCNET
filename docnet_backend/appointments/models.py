@@ -26,6 +26,9 @@ class Appointment(models.Model):
     reason = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
 
+    doctor_rating = models.PositiveIntegerField(blank=True, null=True)
+    doctor_report = models.TextField(blank=True, null=True)
+
     date_booked = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 

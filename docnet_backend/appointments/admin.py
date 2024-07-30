@@ -5,7 +5,8 @@ from django.utils.translation import gettext as _
 
 @admin.register(Appointment)
 class AppointmentAdmin(admin.ModelAdmin):
-    list_display = ['patient', 'doctor', 'start_datetime', 'status']
+    list_display = ['patient', 'doctor',
+                    'start_datetime', 'status', 'doctor_rating']
     search_fields = ['patient', 'doctor', 'status']
     readonly_fields = ['id', 'date_booked', 'date_modified']
 
@@ -33,6 +34,15 @@ class AppointmentAdmin(admin.ModelAdmin):
             }
         ),
         (
+            _('Appointment Feedback'),
+            {
+                'fields': (
+                    'doctor_rating',
+                    'doctor_report',
+                )
+            }
+        ),
+        (
             _('Important Dates'),
             {
                 'fields': (
@@ -54,7 +64,7 @@ class AppointmentAdmin(admin.ModelAdmin):
                     'start_datetime',
                     'end_datetime',
                     'reason',
-                    'notes'
+                    'notes',
                 )
             }
         ),
