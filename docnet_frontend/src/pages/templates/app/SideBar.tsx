@@ -26,7 +26,7 @@ import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import { useLocation } from 'react-router-dom';
 import ColorSchemeToggle from '../../../components/ColorSchemeToggle';
 import { closeSidebar } from '../../../utils';
-import { UserDataType } from '../../../@types/profile.service';
+import { UserDataType } from '../../../@types/profile-service';
 import { useAuthServiceContext } from '../../../context/AuthContext';
 
 
@@ -246,10 +246,10 @@ const SideBar = () => {
                 <Avatar
                     variant="outlined"
                     size="sm"
-                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=286"
+                    src="https://cdn.pixabay.com/photo/2015/03/28/16/29/business-696076_1280.jpg"
                 />
                 <Box sx={{ minWidth: 0, flex: 1 }}>
-                    <Typography level="title-sm">{accountData?.first_name} {accountData?.last_name[0]}.</Typography>
+                    <Typography level="title-sm">{accountData?.first_name} {accountData?.last_name?.[0]}.</Typography>
                     <Typography level="body-xs">{accountData?.email}</Typography>
                 </Box>
                 <IconButton
