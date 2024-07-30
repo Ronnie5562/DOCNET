@@ -11,48 +11,49 @@ import './styles/carousel.css'
 
 const userTestimonials = [
     {
-        avatar: <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />,
-        name: 'Remy Sharp',
-        occupation: 'Senior Engineer',
+        avatar: <Avatar alt="Dr. Emily Carter" src="/static/images/avatar/1.jpg" />,
+        name: 'Dr. Emily Carter',
+        occupation: 'General Practitioner',
         testimonial:
-            "I absolutely love how versatile this product is! Whether I'm tackling work projects or indulging in my favorite hobbies, it seamlessly adapts to my changing needs. Its intuitive design has truly enhanced my daily routine, making tasks more efficient and enjoyable.",
+            "This telemedicine app has revolutionized my practice. The ease of scheduling and conducting virtual consultations has improved patient care and efficiency. I can now provide timely medical advice and follow-ups without the constraints of physical appointments.",
     },
     {
-        avatar: <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />,
-        name: 'Travis Howard',
-        occupation: 'Lead Product Designer',
+        avatar: <Avatar alt="Michael Thompson" src="/static/images/avatar/2.jpg" />,
+        name: 'Michael Thompson',
+        occupation: 'Patient',
         testimonial:
-            "I absolutely love how versatile this product is! Whether I'm tackling work projects or indulging in my favorite hobbies, it seamlessly adapts to my changing needs. Its intuitive design has truly enhanced my daily routine, making tasks more efficient and enjoyable.",
+            "Using this telemedicine app has been a game-changer for me. As a busy professional, I appreciate the convenience of scheduling appointments and speaking with my doctor from the comfort of my home. It has made managing my health so much easier",
     },
     {
-        avatar: <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />,
-        name: 'Cindy Baker',
-        occupation: 'CTO',
+        avatar: <Avatar alt="Sarah Johnson" src="/static/images/avatar/3.jpg" />,
+        name: 'Sarah Johnson',
+        occupation: 'Patient',
         testimonial:
-            "I absolutely love how versatile this product is! Whether I'm tackling work projects or indulging in my favorite hobbies, it seamlessly adapts to my changing needs. Its intuitive design has truly enhanced my daily routine, making tasks more efficient and enjoyable.",
+            "I absolutely love the convenience this telemedicine app offers. I no longer have to take time off work to visit my doctor. The app's user-friendly interface and reliable video calls have made accessing medical care seamless and efficient.",
     },
     {
-        avatar: <Avatar alt="Remy Sharp" src="/static/images/avatar/4.jpg" />,
-        name: 'Julia Stewart',
-        occupation: 'Senior Engineer',
+        avatar: <Avatar alt="Dr. James Wilson" src="/static/images/avatar/4.jpg" />,
+        name: 'Dr. James Wilson',
+        occupation: 'Dermatologist',
         testimonial:
-            "I absolutely love how versatile this product is! Whether I'm tackling work projects or indulging in my favorite hobbies, it seamlessly adapts to my changing needs. Its intuitive design has truly enhanced my daily routine, making tasks more efficient and enjoyable.",
+            "The telemedicine app has been a valuable addition to my practice. It allows me to reach patients in remote areas who otherwise wouldn't have access to specialized dermatological care. The app's features make consultations smooth and effective.",
     },
     {
-        avatar: <Avatar alt="Travis Howard" src="/static/images/avatar/5.jpg" />,
-        name: 'John Smith',
-        occupation: 'Product Designer',
+        avatar: <Avatar alt="Emily Davis" src="/static/images/avatar/5.jpg" />,
+        name: 'Emily Davis',
+        occupation: 'Patient',
         testimonial:
-            "I absolutely love how versatile this product is! Whether I'm tackling work projects or indulging in my favorite hobbies, it seamlessly adapts to my changing needs. Its intuitive design has truly enhanced my daily routine, making tasks more efficient and enjoyable.",
+            "This app has made a significant difference in my healthcare routine. I can easily book appointments and get medical advice without leaving my house. The virtual consultations have been incredibly helpful, especially during times when visiting a clinic is not feasible.",
     },
     {
-        avatar: <Avatar alt="Cindy Baker" src="/static/images/avatar/6.jpg" />,
-        name: 'Daniel Wolf',
-        occupation: 'CDO',
+        avatar: <Avatar alt="John Martinez" src="/static/images/avatar/6.jpg" />,
+        name: 'John Martinez',
+        occupation: 'Patient',
         testimonial:
-            "I absolutely love how versatile this product is! Whether I'm tackling work projects or indulging in my favorite hobbies, it seamlessly adapts to my changing needs. Its intuitive design has truly enhanced my daily routine, making tasks more efficient and enjoyable.",
+            "As someone with a chronic condition, this telemedicine app has been a lifeline. Regular check-ins with my doctor are now hassle-free, and I can manage my health better with the timely support and guidance provided through the app.",
     },
 ];
+
 
 const whiteLogos = [
     'https://assets-global.website-files.com/61ed56ae9da9fd7e0ef0a967/6560628e8573c43893fe0ace_Sydney-white.svg',
@@ -148,16 +149,15 @@ const TestimonialsCarousel = () => {
                 <Box
                     sx={{
                         width: { sm: '100%', md: '60%' },
-                        textAlign: { sm: 'left', md: 'center' },
+                        textAlign: 'center',
                     }}
                 >
                     <Typography component="h2" variant="h4" sx={{ color: 'text.primary' }}>
                         Testimonials
                     </Typography>
                     <Typography variant="body1" sx={{ color: 'text.secondary' }}>
-                        See what our customers love about our products. Discover how we excel in
-                        efficiency, durability, and satisfaction. Join us for quality, innovation,
-                        and reliable support.
+                        See what our customers love about docnet. Discover how we excel in
+                        efficiency, durability, and satisfaction. Join us for a seamless experince in managing your health
                     </Typography>
                 </Box>
             </Container>
@@ -204,11 +204,11 @@ const TestimonialsCarousel = () => {
                                         subheader={testimonial.occupation}
                                         sx={{ flexShrink: 0 }}
                                     />
-                                    <img
+                                    {/* <img
                                         src={logos[index]}
                                         alt={`Logo ${index + 1}`}
                                         style={logoStyle}
-                                    />
+                                    /> */}
                                 </Box>
                             </Card>
                         </Grid>
@@ -216,7 +216,6 @@ const TestimonialsCarousel = () => {
                 </CustomSlider>
             </Container>
         </>
-
     );
 };
 

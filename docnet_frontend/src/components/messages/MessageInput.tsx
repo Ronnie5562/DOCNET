@@ -28,9 +28,9 @@ export default function MessageInput(props: MessageInputProps) {
     };
     return (
         <Box sx={{ px: 2, pb: 3 }}>
-            <FormControl>
+            {/* <FormControl>
                 <Textarea
-                    placeholder="Type something here…"
+                    placeholder="Send a message"
                     aria-label="Message"
                     ref={textAreaRef}
                     onChange={(e) => {
@@ -52,20 +52,7 @@ export default function MessageInput(props: MessageInputProps) {
                                 borderColor: 'divider',
                             }}
                         >
-                            <div>
-                                <IconButton size="sm" variant="plain" color="neutral">
-                                    <FormatBoldRoundedIcon />
-                                </IconButton>
-                                <IconButton size="sm" variant="plain" color="neutral">
-                                    <FormatItalicRoundedIcon />
-                                </IconButton>
-                                <IconButton size="sm" variant="plain" color="neutral">
-                                    <StrikethroughSRoundedIcon />
-                                </IconButton>
-                                <IconButton size="sm" variant="plain" color="neutral">
-                                    <FormatListBulletedRoundedIcon />
-                                </IconButton>
-                            </div>
+
                             <Button
                                 size="sm"
                                 color="primary"
@@ -84,11 +71,64 @@ export default function MessageInput(props: MessageInputProps) {
                     }}
                     sx={{
                         '& textarea:first-of-type': {
-                            minHeight: 72,
+                            minHeight: 60,
                         },
                     }}
                 />
+            </FormControl> */}
+
+            <FormControl>
+                <Box
+                    display="flex"
+                    alignItems="center"
+                    sx={{
+                        border: '1px solid',
+                        borderColor: 'divider',
+                        borderRadius: 'lg',
+                        padding: 1,
+                    }}
+                >
+                    <Textarea
+                        placeholder="Send a message"
+                        aria-label="Message"
+                        ref={textAreaRef}
+                        onChange={(e) => {
+                            setTextAreaValue(e.target.value);
+                        }}
+                        value={textAreaValue}
+                        minRows={3}
+                        maxRows={10}
+                        onKeyDown={(event) => {
+                            if (event.key === 'Enter' && (event.metaKey || event.ctrlKey)) {
+                                handleClick();
+                            }
+                        }}
+                        sx={{
+                            flexGrow: 1,
+                            '& textarea:first-of-type': {
+                                minHeight: 40,
+                            },
+                            borderRadius: 'lg',
+                        }}
+                    />
+                    <Button
+                        size="sm"
+                        color="primary"
+                        sx={{
+                            borderRadius: '50%',
+                            minWidth: 40,
+                            minHeight: 40,
+                            padding: 0,
+                            ml: 2,
+                        }}
+                        onClick={handleClick}
+                    >
+                        <SendRoundedIcon />
+                    </Button>
+                </Box>
             </FormControl>
+
+
         </Box>
     );
 }

@@ -13,6 +13,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ToggleColorMode from './ToggleColorMode';
 import DocnetIcon from './DocnetIcon';
+import { PLATFORM_URL } from '../utils';
+
 
 interface AppAppBarProps {
   mode: PaletteMode;
@@ -74,6 +76,14 @@ export default function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
                 variant="text"
                 color="info"
                 size="small"
+                onClick={() => scrollToSection('products')}
+              >
+                Products
+              </Button>
+              <Button
+                variant="text"
+                color="info"
+                size="small"
                 onClick={() => scrollToSection('features')}
               >
                 Features
@@ -85,14 +95,6 @@ export default function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
                 onClick={() => scrollToSection('testimonials')}
               >
                 Testimonials
-              </Button>
-              <Button
-                variant="text"
-                color="info"
-                size="small"
-                onClick={() => scrollToSection('highlights')}
-              >
-                Highlights
               </Button>
               {/* <Button
                 variant="text"
@@ -121,10 +123,22 @@ export default function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
             }}
           >
             <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
-            <Button color="primary" variant="text" size="small">
+            <Button
+              color="primary"
+              variant="text"
+              size="small"
+              component="a"
+              href={`${PLATFORM_URL}/login`}
+            >
               Sign in
             </Button>
-            <Button color="primary" variant="contained" size="small">
+            <Button
+              color="primary"
+              variant="contained"
+              size="small"
+              component="a"
+              href={`${PLATFORM_URL}/register`}
+            >
               Sign up
             </Button>
           </Box>

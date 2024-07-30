@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
 import { useColorScheme } from '@mui/joy';
-import { Button, Grid, Typography, Paper, Box, Container } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import MuiTextField from '@mui/material/TextField';
 
@@ -18,63 +18,46 @@ const outlinedSelectors = [
     '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline',
 ];
 
+interface AppointmentDetailsFormProps {
+    appointmentBookingData: { reason: string; notes: string; };
+    setAppointmentBookingData: (data: { reason: string; notes: string; }) => void;
+}
 
+const TextField = styled(
+    MuiTextField,
+    options,
+)<TextFieldProps>(({ borderColor }) => ({
+    '& label.Mui-focused': {
+        color: borderColor,
+    },
+    [outlinedSelectors.join(',')]: {
+        borderWidth: 3,
+        borderColor,
+    },
+}));
 
-const AppointmentDetailsForm = () => {
-    const [appointmentBookingData, setAppointmentBookingData] = useState({
-        reason: '',
-        notes: '',
-    });
-
+const AppointmentDetailsForm: React.FC<AppointmentDetailsFormProps> = ({ appointmentBookingData, setAppointmentBookingData }) => {
     const handleReasonChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setAppointmentBookingData(
-            {
-                ...appointmentBookingData,
-                reason: event.target.value
-            }
-        );
+        setAppointmentBookingData({
+            ...appointmentBookingData,
+            reason: event.target.value
+        });
     };
 
     const handleNotesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setAppointmentBookingData(
-            {
-                ...appointmentBookingData,
-                notes: event.target.value
-            }
-        )
+        setAppointmentBookingData({
+            ...appointmentBookingData,
+            notes: event.target.value
+        });
     };
 
-    const handleSubmit = (event: React.FormEvent) => {
-        event.preventDefault();
-        console.log('Reason:', appointmentBookingData.reason);
-        console.log('Notes:', appointmentBookingData.notes);
-    };
     const { mode } = useColorScheme();
 
-    const TextField = styled(
-        MuiTextField,
-        options,
-    )<TextFieldProps>(({ borderColor }) => ({
-        '& label': {
-            color: mode === 'dark' ? '#ccc' : 'black',
-        },
-        '& label.Mui-focused': {
-            color: borderColor,
-        },
-        [outlinedSelectors.join(',')]: {
-            borderWidth: 3,
-            borderColor,
-        },
-    }));
-
     return (
-        <Container maxWidth="sm">
+        <Container maxWidth="sm" sx={{ mt: -30 }}>
             <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
                 <Box sx={{ width: '100%' }}>
-                    <Typography variant="h6" gutterBottom>
-                        Appointment Form
-                    </Typography>
-                    <form onSubmit={handleSubmit}>
+                    <form>
                         <TextField
                             label="Reason"
                             value={appointmentBookingData.reason}
@@ -83,7 +66,14 @@ const AppointmentDetailsForm = () => {
                             margin="normal"
                             required
                             borderColor="#1976d2"
+                            sx={{
+                                input: { color: mode === 'dark' ? 'white' : 'black' },
+                                '& label': {
+                                    color: mode === 'dark' ? '#ccc' : 'black',
+                                },
+                            }}
                         />
+
                         <TextField
                             label="Notes"
                             value={appointmentBookingData.notes}
@@ -91,20 +81,20 @@ const AppointmentDetailsForm = () => {
                             fullWidth
                             margin="normal"
                             multiline
-                            rows={4}
+                            rows={5}
                             borderColor="#1976d2"
+                            sx={{
+                                textArea: { color: mode === 'dark' ? 'white' : 'black' },
+                                '& label': {
+                                    color: mode === 'dark' ? '#ccc' : 'black',
+                                },
+                            }}
                         />
-                        <Box mt={2}>
-                            <Button type="submit" variant="contained" color="primary" fullWidth>
-                                Submit
-                            </Button>
-                        </Box>
                     </form>
                 </Box>
             </Box>
         </Container>
     );
 };
-
 
 export default AppointmentDetailsForm;

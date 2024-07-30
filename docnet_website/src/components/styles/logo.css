@@ -1,3 +1,7 @@
 .logo-link::before {
   display: none;
 }
+
+.logo-icon {
+  font-weight: 100;
+}

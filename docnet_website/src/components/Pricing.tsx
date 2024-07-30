@@ -15,12 +15,12 @@ import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 
 const tiers = [
   {
-    title: 'Free',
+    title: 'Basic',
     price: '0',
     description: [
-      '10 users included',
-      '2 GB of storage',
-      'Help center access',
+      '5 consultations per month',
+      'Access to general practitioners',
+      'Basic health records',
       'Email support',
     ],
     buttonText: 'Sign up for free',
@@ -29,31 +29,33 @@ const tiers = [
   {
     title: 'Professional',
     subheader: 'Recommended',
-    price: '15',
+    price: '25',
     description: [
-      '20 users included',
-      '10 GB of storage',
-      'Help center access',
+      'Unlimited consultations',
+      'Access to specialists',
+      'Comprehensive health records',
       'Priority email support',
-      'Dedicated team',
-      'Best deals',
+      'Personalized health tips',
+      'Discounts on medications',
     ],
-    buttonText: 'Start now',
+    buttonText: 'Get started',
     buttonVariant: 'contained',
   },
   {
     title: 'Enterprise',
-    price: '30',
+    price: '50',
     description: [
-      '50 users included',
-      '30 GB of storage',
-      'Help center access',
+      'Unlimited consultations for entire team',
+      'Access to all specialists',
+      'Advanced health analytics',
       'Phone & email support',
+      'Dedicated account manager',
     ],
-    buttonText: 'Contact us',
+    buttonText: 'Contact sales',
     buttonVariant: 'outlined',
   },
 ];
+
 
 export default function Pricing() {
   return (

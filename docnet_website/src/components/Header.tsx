@@ -4,6 +4,8 @@ import Typography from '@mui/joy/Typography';
 import ArrowForward from '@mui/icons-material/ArrowForward';
 import Star from '@mui/icons-material/Star';
 import TwoSidedLayout from '../layouts/TwoSidedLayout';
+import WordRotate from "../../@/components/magicui/word-rotate";
+import { PLATFORM_URL } from '../utils';
 import { Diversity2Sharp } from '@mui/icons-material';
 
 const Header = () => {
@@ -14,7 +16,11 @@ const Header = () => {
                 fontWeight="xl"
                 fontSize="large"
             >
-                Integrated HealthCare Management Platform
+                <WordRotate
+                    className="font-bold"
+                    words={["Integrated", "User Friendly", "Secured"]}
+                />
+                HealthCare Management Platform
             </Typography>
             <Typography fontSize="lg" textColor="text.secondary" lineHeight="lg">
                 Expert care, anytime, anywhere. <br /> Connect with top medical professionals from the comfort of your home with Docnet.
@@ -31,7 +37,11 @@ const Header = () => {
                 <Button variant="outlined" color="secondary">
                     Learn More
                 </Button>
-                <Button endIcon={<ArrowForward fontSize="large" />}>
+                <Button
+                    endIcon={<ArrowForward fontSize="large" />}
+                    component={"a"}
+                    href={`${PLATFORM_URL}/register`}
+                >
                     Register
                 </Button>
             </Box>

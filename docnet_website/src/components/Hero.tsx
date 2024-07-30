@@ -7,6 +7,7 @@ import Header from './Header';
 import { styled } from '@mui/material/styles';
 import ScrollAnimation from 'react-animate-on-scroll';
 
+
 const StyledBox = styled('div')(({ theme }) => ({
   position: 'relative',
   alignSelf: 'center',
@@ -55,7 +56,6 @@ export default function Hero() {
       })}
     >
       <Header />
-
       <Container
         sx={{
           display: 'flex',

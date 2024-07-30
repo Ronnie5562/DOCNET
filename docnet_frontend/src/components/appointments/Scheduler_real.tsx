@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useMediaQuery } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
-import { LoadingButton } from '@mui/lab';
 import { Button, Grid, Box, Container } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import { useColorScheme } from '@mui/joy/styles';
-import { useSnackbar } from 'notistack';
 import dayjs, { Dayjs } from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import useAppointmentService from '@/services/AppointmentServices';
 import schedulerTheme from '../../theme/schedulerTheme';
 dayjs.extend(utc);
+
 
 interface SchedulerProps {
     selectedDate: Dayjs | null;
@@ -24,22 +23,21 @@ interface SchedulerProps {
     doctor_id: string;
 }
 
-const Scheduler: React.FC<SchedulerProps> = ({
-    selectedDate,
-    setSelectedDate,
-    selectedTime,
-    setSelectedTime,
-    reason,
-    notes,
-    doctor_id,
-}) => {
+const Scheduler: React.FC<SchedulerProps> = (
+    {
+        selectedDate,
+        setSelectedDate,
+        selectedTime,
+        setSelectedTime,
+        reason,
+        notes,
+        doctor_id
+    }
+) => {
     const { mode } = useColorScheme();
     const theme = schedulerTheme(mode);
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const times = ['10:00', '11:00', '1:00', '2:30', '12:01'];
-    const { ScheduleAppointment } = useAppointmentService();
-    const { enqueueSnackbar } = useSnackbar();
-    const [loading, setLoading] = useState(false);
 
     const handleDateTime = () => {
         if (selectedDate && selectedTime) {
@@ -48,28 +46,27 @@ const Scheduler: React.FC<SchedulerProps> = ({
             let dateTime = selectedDate.hour(time).minute(Number(minutes));
             dateTime = dateTime.second(0).millisecond(0);
             const utcDateTime = dayjs.utc(dateTime);
+            // console.log(utcDateTime.format('YYYY-MM-DDTHH:mm:ss.SSS[Z]'));
+
             return utcDateTime.format('YYYY-MM-DDTHH:mm:ss.SSS[Z]');
         }
+
         return '';
     };
 
-    const handleSubmit = async () => {
-        setLoading(true);
-        try {
-            const res = await ScheduleAppointment({
-                doctor_id: doctor_id,
-                reason: reason,
-                notes: notes,
-                start_datetime: handleDateTime(),
-            });
-            enqueueSnackbar('Appointment scheduled successfully!', { variant: 'success' });
-            console.log(res);
-        } catch (error) {
-            enqueueSnackbar('Failed to schedule appointment.', { variant: 'error' });
-        } finally {
-            setLoading(false);
-        }
+    const { ScheduleAppointment } = useAppointmentService();
+
+    const handleSubmit = () => {
+        const res = ScheduleAppointment({
+            doctor_id:doctor_id,
+            reason:reason,
+            notes:notes,
+            start_datetime: handleDateTime()
+        })
+
+        console.log(res);
     };
+
 
     return (
         <ThemeProvider theme={theme}>
@@ -103,15 +100,9 @@ const Scheduler: React.FC<SchedulerProps> = ({
                         </Box>
                         {selectedDate && selectedTime && (
                             <Box mt={4} textAlign="center">
-                                <LoadingButton
-                                    loading={loading}
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={handleSubmit}
-                                >
-                                    Confirm {selectedDate.format('MMMM DD, YYYY')} at {selectedTime}{' '}
-                                    {Number(selectedTime.split(':')[0]) < 12 ? 'AM' : 'PM'}
-                                </LoadingButton>
+                                <Button variant="contained" color="primary" onClick={handleSubmit}>
+                                    Confirm {selectedDate.format('MMMM DD, YYYY')} at {selectedTime} {Number(selectedTime.split(':')[0]) < 12 ? 'AM' : 'PM'}
+                                </Button>
                             </Box>
                         )}
                     </Box>
