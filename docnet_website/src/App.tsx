@@ -15,12 +15,12 @@ import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 import createMuiTheme from './theme/theme.tsx';
 import ScrollAnimation from 'react-animate-on-scroll';
+import { FeaturesDisplay } from './components/FeaturesDisplay.tsx';
 import TestimonialsCarousel from './components/TestimonialsCarousel.tsx';
-
-
+import { CssVarsProvider } from '@mui/joy';
 
 const App = () => {
-  const [mode, setMode] = React.useState<PaletteMode>('light');
+  const [mode, setMode] = React.useState<PaletteMode>('dark');
   const theme = createTheme(createMuiTheme(mode));
 
   const toggleColorMode = () => {
@@ -32,18 +32,20 @@ const App = () => {
       <CssBaseline />
       <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
       <Hero />
-      <Box sx={{ bgcolor: 'background.default' }}>
+      <Box sx={{ bgcolor: 'background.default', overflowX: 'hidden' }}>
         <ScrollAnimation animateIn="zoomIn" animateOnce={true}>
           <LogoCollection />
         </ScrollAnimation>
         <Features />
         <Divider />
-        {/* <Testimonials /> */}
-        <TestimonialsCarousel />
+        <ScrollAnimation animateIn="zoomIn" animateOnce={true}>
+          <FeaturesDisplay />
+        </ScrollAnimation>
         <Divider />
-        <Highlights />
-        <Divider />
+        {/* <Highlights />
+        <Divider /> */}
         {/* <Pricing /> */}
+        <TestimonialsCarousel />
         <Divider />
         <FAQ />
         <Divider />

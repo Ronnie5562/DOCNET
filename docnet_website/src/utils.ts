@@ -1,0 +1,1 @@
+export const PLATFORM_URL = "localhost:5173";
