@@ -62,10 +62,10 @@ const Scheduler: React.FC<SchedulerProps> = ({
                 notes: notes,
                 start_datetime: handleDateTime(),
             });
-            enqueueSnackbar('Appointment scheduled successfully!', { variant: 'success' });
+            enqueueSnackbar('Appointment scheduled successfully!', { variant: 'success', anchorOrigin: { vertical: 'bottom', horizontal: 'right' } });
             console.log(res);
         } catch (error) {
-            enqueueSnackbar('Failed to schedule appointment.', { variant: 'error' });
+            enqueueSnackbar('Failed to schedule appointment.', { variant: 'error', anchorOrigin: { vertical: 'bottom', horizontal: 'right' } });
         } finally {
             setLoading(false);
         }
