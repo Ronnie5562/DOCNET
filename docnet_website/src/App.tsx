@@ -33,9 +33,9 @@ const App = () => {
       <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
       <Hero />
       <Box sx={{ bgcolor: 'background.default', overflowX: 'hidden' }}>
-        <ScrollAnimation animateIn="zoomIn" animateOnce={true}>
+        {/* <ScrollAnimation animateIn="zoomIn" animateOnce={true}>
           <LogoCollection />
-        </ScrollAnimation>
+        </ScrollAnimation> */}
         <Features />
         <Divider />
         <ScrollAnimation animateIn="zoomIn" animateOnce={true}>
