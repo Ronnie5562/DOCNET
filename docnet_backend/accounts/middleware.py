@@ -13,4 +13,3 @@ class JWTAuthenticationMiddleware(MiddlewareMixin):
 
             request.META['HTTP_AUTHORIZATION'] = f'Bearer {token}'
             request.META['HTTP_X_CSRFTOKEN'] = csrf_token
-

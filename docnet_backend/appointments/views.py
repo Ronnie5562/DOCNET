@@ -1,11 +1,9 @@
-from django.views.decorators.csrf import csrf_exempt
 import logging
 from appointments.models import Appointment
 from rest_framework import generics, permissions
-from rest_framework.response import Response
 from utils.permissions import IsUserInvolvedOrAdmin
 from appointments.serializers import AppointmentSerializer
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 
 logger = logging.getLogger(__name__)

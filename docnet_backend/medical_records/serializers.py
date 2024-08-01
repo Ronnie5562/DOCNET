@@ -18,4 +18,3 @@ class AppointmentMedicalRecordSerializer(MedicalRecordSerializer):
         fields = (
             'id', 'diagnosis', 'symptoms', 'treatment', 'notes',
         )
-

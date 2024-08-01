@@ -1,7 +1,6 @@
 from django.core.management.base import BaseCommand
 from faker import Faker
 from accounts.models import User
-from accounts.choices import USER_ROLES
 from profiles.choices import GENDER_CHOICES
 from doctor_profiles.models import Doctor
 import random
@@ -54,8 +53,8 @@ class Command(BaseCommand):
             profile.zip_code = faker.zipcode()
             profile.city = faker.city()
             profile.country = random.choice(list(countries))
-            profile.languages = [faker.language_name()
-                         for _ in range(random.randint(1, 3))]
+            profile.languages = [
+                faker.language_name() for _ in range(random.randint(1, 3))]
             profile.speciality = random.choice(SPECIALITIES)
             profile.license_number = faker.unique.ssn()
             profile.years_of_experience = random.randint(1, 30)
