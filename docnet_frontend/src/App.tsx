@@ -11,7 +11,7 @@ import Appointments from "./pages/app/Appointments";
 
 const App = () => {
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
+    <BrowserRouter>
       <AuthServiceProvider>
         <Routes>
           {/* AUTH ROUTES */}
