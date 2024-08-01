@@ -1,1 +1,1 @@
-export const PLATFORM_URL = "localhost:5173";
+export const PLATFORM_URL = "http://localhost:5173";
