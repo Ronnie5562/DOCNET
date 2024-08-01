@@ -9,7 +9,6 @@ import Link from '@mui/joy/Link';
 import Input from '@mui/joy/Input';
 import Typography from '@mui/joy/Typography';
 import Stack from '@mui/joy/Stack';
-import { useNavigate } from "react-router-dom";
 import AuthPage from '../templates/auth/AuthPage';
 import GoogleIcon from '../../components/auth/GoogleIcon';
 import { useAuthServiceContext } from '../../context/AuthContext';
@@ -19,7 +18,6 @@ import { InfoOutlined } from '@mui/icons-material';
 
 const LogIn = () => {
     const { login } = useAuthServiceContext();
-    const navigate = useNavigate();
 
     const formik = useFormik({
         initialValues: {

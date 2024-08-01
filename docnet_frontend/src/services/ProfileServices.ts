@@ -1,4 +1,3 @@
-import axios from "axios";
 import { ProfileServiceProps } from "../@types/profile-service";
 import { useState } from "react";
 import { BASE_URL } from "../config";

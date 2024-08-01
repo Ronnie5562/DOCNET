@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useMediaQuery } from '@mui/material';
+// import { useMediaQuery } from '@mui/material';
 import { Box } from "@mui/joy";
 import AppointmentDetailsForm from './AppointmentDetailsForm';
 import Scheduler from './Scheduler';
 import Typography from '@mui/joy/Typography';
 import dayjs, { Dayjs } from 'dayjs';
 import { Stepper, Step, StepLabel, Button } from '@mui/material';
-import { useTheme } from '@mui/material';
+// import { useTheme } from '@mui/material';
 import UserCard from '../app/userCard';
 import { ChevronRight, ChevronLeft } from '@mui/icons-material';
 import useAppointmentService from '@/services/AppointmentServices';
@@ -27,10 +27,10 @@ const AppointmentBooking: React.FC<AppointmentBookingProps> = ({ doctor_id }) =>
     }, [doctor_id]);
 
 
-    const theme = useTheme();
-    const s_screen = useMediaQuery(theme.breakpoints.up('sm'));
-    const xs_screen = useMediaQuery(theme.breakpoints.up('xs'));
-    const md_screen = useMediaQuery(theme.breakpoints.up('md'));
+    // const theme = useTheme();
+    // const s_screen = useMediaQuery(theme.breakpoints.up('sm'));
+    // const xs_screen = useMediaQuery(theme.breakpoints.up('xs'));
+    // const md_screen = useMediaQuery(theme.breakpoints.up('md'));
 
     const [activeStep, setActiveStep] = useState(0);
     const [appointmentBookingData, setAppointmentBookingData] = useState({

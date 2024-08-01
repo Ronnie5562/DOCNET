@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
@@ -91,7 +91,6 @@ const UserCard: React.FC<UserCardProps> = ({ doctor, appointmentPage, id }) => {
     const generateUniqueImageUrl = () => {
         return `https://thispersondoesnotexist.com?${id}`;
     };
-
 
 
     return (

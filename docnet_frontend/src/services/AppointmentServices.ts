@@ -1,9 +1,8 @@
-import axios from "axios";
 import { useState } from "react";
 import { BASE_URL } from "../config";
-import { useNavigate } from "react-router-dom";
-import { useAuthServiceContext } from '../context/AuthContext';
-import { DoctorCardDetailsProps } from "../@types/home-service";
+// import { useNavigate } from "react-router-dom";
+// import { useAuthServiceContext } from '../context/AuthContext';
+// import { DoctorCardDetailsProps } from "../@types/home-service";
 import useAxiosWithJwtInterceptor from "../helpers/jwtinterceptor";
 import {
     AppointmentServiceProps, AppointmentScheduleProps
@@ -12,7 +11,7 @@ import {
 
 const useAppointmentService = (): AppointmentServiceProps => {
     const jwtAxios = useAxiosWithJwtInterceptor();
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     const getInitialLoggedInValue = () => {
         const loggedIn = localStorage.getItem("isLoggedIn");
@@ -20,6 +19,7 @@ const useAppointmentService = (): AppointmentServiceProps => {
     };
 
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>((getInitialLoggedInValue))
+
 
     const getDoctorData = async (doctor_id:string) => {
         try {
@@ -32,6 +32,7 @@ const useAppointmentService = (): AppointmentServiceProps => {
             return response.data
         } catch (err: any) {
             setIsLoggedIn(false)
+            console.log(isLoggedIn)
             localStorage.setItem("isLoggedIn", "false")
             return err;
         }
