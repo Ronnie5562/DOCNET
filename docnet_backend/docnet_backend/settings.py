@@ -25,6 +25,8 @@ ALLOWED_HOSTS = ["*"]
 # To allow POST request from frontend
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:5173',
+    'http://127.0.0.1:5173',
+    'https://docnet-frontend.onrender.com',
 ]
 
 # Application definition
@@ -193,6 +195,8 @@ SPECTACULAR_SETTINGS = {
     # OTHER SETTINGS
 }
 
+# Remember to change this in production
+#! we should not allow all origins in production
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 

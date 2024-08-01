@@ -1,3 +1,3 @@
-export const BASE_URL = "http://localhost:8000/api";
-export const MEDIA_URL = "http://localhost:8000";
-export const WS_ROOT = "ws://localhost:8000"
+export const BASE_URL = "https://docnet-backend.onrender.com/api";
+export const MEDIA_URL = "https://docnet-backend.onrender.com/";
+export const WS_ROOT = "ws://docnet-backend.onrender.com/"
