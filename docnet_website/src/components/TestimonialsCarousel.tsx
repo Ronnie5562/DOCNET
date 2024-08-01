@@ -76,7 +76,7 @@ const darkLogos = [
 
 const TestimonialsCarousel = () => {
     const theme = useTheme();
-    const logos = theme.palette.mode === 'light' ? darkLogos : whiteLogos;
+    // const logos = theme.palette.mode === 'light' ? darkLogos : whiteLogos;
 
     const CustomSlider = styled(Slider)(({ theme }) => ({
         '.slick-dots li button:before': {
@@ -127,10 +127,10 @@ const TestimonialsCarousel = () => {
     };
 
 
-    const logoStyle = {
-        width: '64px',
-        // opacity: 0.3,
-    };
+    // const logoStyle = {
+    //     width: '64px',
+    //     opacity: 0.3,
+    // };
 
     return (
         <>

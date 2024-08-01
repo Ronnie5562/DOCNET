@@ -6,7 +6,6 @@ import Star from '@mui/icons-material/Star';
 import TwoSidedLayout from '../layouts/TwoSidedLayout';
 import WordRotate from "../../@/components/magicui/word-rotate";
 import { PLATFORM_URL } from '../utils';
-import { Diversity2Sharp } from '@mui/icons-material';
 
 const Header = () => {
     return (

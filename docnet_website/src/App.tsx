@@ -6,8 +6,8 @@ import Divider from '@mui/material/Divider';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import AppAppBar from './components/AppAppBar';
 import Hero from './components/Hero.tsx';
-import LogoCollection from './components/LogoCollection';
-import Highlights from './components/Highlights';
+// import LogoCollection from './components/LogoCollection';
+// import Highlights from './components/Highlights';
 // import Pricing from './components/Pricing';
 import Features from './components/Features';
 // import Testimonials from './components/Testimonials';
@@ -17,7 +17,7 @@ import createMuiTheme from './theme/theme.tsx';
 import ScrollAnimation from 'react-animate-on-scroll';
 import { FeaturesDisplay } from './components/FeaturesDisplay.tsx';
 import TestimonialsCarousel from './components/TestimonialsCarousel.tsx';
-import { CssVarsProvider } from '@mui/joy';
+// import { CssVarsProvider } from '@mui/joy';
 
 const App = () => {
   const [mode, setMode] = React.useState<PaletteMode>('dark');
