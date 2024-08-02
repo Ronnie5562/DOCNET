@@ -22,13 +22,6 @@ USE_DEFAULT_DATABASE = config("USE_DEFAULT_DATABASE", default=False, cast=bool)
 
 ALLOWED_HOSTS = ["*"]
 
-# To allow POST request from frontend
-CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:5173',
-    'http://127.0.0.1:5173',
-    'https://docnet-frontend.onrender.com',
-    'https://docnet-test.onrender.com',
-]
 
 # Application definition
 
@@ -196,17 +189,37 @@ SPECTACULAR_SETTINGS = {
     # OTHER SETTINGS
 }
 
-# Remember to change this in production
-#! we should not allow all origins in production
-CORS_ALLOW_ALL_ORIGINS = True
+# To allow POST request from frontend
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+    'https://docnet-frontend.onrender.com',
+    'https://docnet-test.onrender.com',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+    'https://docnet-frontend.onrender.com',
+    'https://docnet-test.onrender.com',
+]
+
 CORS_ALLOW_CREDENTIALS = True
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=20),
 
-    # JWTCookie
+    # JWTCookie settings
     "ACCESS_TOKEN_NAME": "access",
     "REFRESH_TOKEN_NAME": "refresh",
-    "JWT_COOKIE_SAMESITE": "Lax",
+    "JWT_COOKIE_SAMESITE": "None",  # Use None for cross-site requests (Lax)
+    "JWT_COOKIE_SECURE": True,  # Ensure cookies are sent over HTTPS
 }
+
+
+# Cookie settings
+SESSION_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SECURE = True
