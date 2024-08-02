@@ -211,7 +211,7 @@ SIMPLE_JWT = {
     # JWTCookie settings
     "ACCESS_TOKEN_NAME": "access",
     "REFRESH_TOKEN_NAME": "refresh",
-    "JWT_COOKIE_SAMESITE": "Lax",  # Use None for cross-site requests (Lax)
+    "JWT_COOKIE_SAMESITE": "None",  # Use None for cross-site requests (Lax)
     "JWT_COOKIE_SECURE": False,  # Ensure cookies are sent over HTTPS
 }
 
