@@ -203,6 +203,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = True
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
@@ -215,8 +216,8 @@ SIMPLE_JWT = {
     'AUTH_COOKIE': 'access',
     'REFRESH_TOKEN_NAME': 'refresh',
     'ACCESS_TOKEN_NAME': 'access',
-    'AUTH_COOKIE_DOMAIN': 'docnet-test.onrender.com',
-    'AUTH_COOKIE_SECURE': True,
+    # 'AUTH_COOKIE_DOMAIN': 'docnet-test.onrender.com',
+    'AUTH_COOKIE_SECURE': False,
     'AUTH_COOKIE_HTTP_ONLY': True,
     'AUTH_COOKIE_SAMESITE': 'Lax',
 }
@@ -225,7 +226,7 @@ SIMPLE_JWT = {
 SESSION_COOKIE_SAMESITE = 'Lax'
 CSRF_COOKIE_SAMESITE = 'Lax'
 
-SECURE_SSL_REDIRECT = True
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = False
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
 SECURE_REFERRER_POLICY = 'no-referrer-when-downgrade'

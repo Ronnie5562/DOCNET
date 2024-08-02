@@ -114,7 +114,7 @@ class JWTSetCookieMixin:
                     httponly=True,
                     samesite=settings.SIMPLE_JWT.get(
                         "AUTH_COOKIE_SAMESITE", 'Lax'),
-                    domain=settings.SIMPLE_JWT.get("AUTH_COOKIE_DOMAIN", None),
+                    # domain=settings.SIMPLE_JWT.get("AUTH_COOKIE_DOMAIN", None),
                     secure=settings.SIMPLE_JWT.get("AUTH_COOKIE_SECURE", True),
                 )
 
@@ -128,7 +128,7 @@ class JWTSetCookieMixin:
                     httponly=True,
                     samesite=settings.SIMPLE_JWT.get(
                         "AUTH_COOKIE_SAMESITE", 'Lax'),
-                    domain=settings.SIMPLE_JWT.get("AUTH_COOKIE_DOMAIN", None),
+                    # domain=settings.SIMPLE_JWT.get("AUTH_COOKIE_DOMAIN", None),
                     secure=settings.SIMPLE_JWT.get("AUTH_COOKIE_SECURE", True),
                 )
                 del response.data["access"]
