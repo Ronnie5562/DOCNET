@@ -212,11 +212,11 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_NAME": "access",
     "REFRESH_TOKEN_NAME": "refresh",
     "JWT_COOKIE_SAMESITE": "Lax",  # Use None for cross-site requests (Lax)
-    "JWT_COOKIE_SECURE": True,  # Ensure cookies are sent over HTTPS
+    "JWT_COOKIE_SECURE": False,  # Ensure cookies are sent over HTTPS
 }
 
 # Cookie settings
 SESSION_COOKIE_SAMESITE = 'Lax'
-SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SAMESITE = 'Lax'
-CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = False
