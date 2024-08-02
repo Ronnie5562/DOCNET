@@ -20,6 +20,7 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+from datetime import timedelta
 
 
 email_service = EmailService()
@@ -100,25 +101,39 @@ class LogOutAPIView(APIView):
 
 class JWTSetCookieMixin:
     def finalize_response(self, request, response, *args, **kwargs):
-        if response.data.get("refresh"):
-            response.set_cookie(
-                settings.SIMPLE_JWT["REFRESH_TOKEN_NAME"],
-                response.data["refresh"],
-                max_age=settings.SIMPLE_JWT["REFRESH_TOKEN_LIFETIME"],
-                httponly=True,
-                samesite=settings.SIMPLE_JWT["JWT_COOKIE_SAMESITE"],
-            )
-        if response.data.get("access"):
-            response.set_cookie(
-                settings.SIMPLE_JWT["ACCESS_TOKEN_NAME"],
-                response.data["access"],
-                max_age=settings.SIMPLE_JWT["ACCESS_TOKEN_LIFETIME"],
-                httponly=True,
-                samesite=settings.SIMPLE_JWT["JWT_COOKIE_SAMESITE"],
-            )
-            del response.data["access"]
+        response = super().finalize_response(request, response, *args, **kwargs)
 
-        return super().finalize_response(request, response, *args, **kwargs)
+        if isinstance(response, Response):
+            refresh_token = response.data.get("refresh")
+            if refresh_token:
+                response.set_cookie(
+                    settings.SIMPLE_JWT.get("REFRESH_TOKEN_NAME", "refresh"),
+                    refresh_token,
+                    max_age=int(settings.SIMPLE_JWT.get(
+                        "REFRESH_TOKEN_LIFETIME", timedelta(days=1)).total_seconds()),
+                    httponly=True,
+                    samesite=settings.SIMPLE_JWT.get(
+                        "AUTH_COOKIE_SAMESITE", 'Lax'),
+                    domain=settings.SIMPLE_JWT.get("AUTH_COOKIE_DOMAIN", None),
+                    secure=settings.SIMPLE_JWT.get("AUTH_COOKIE_SECURE", True),
+                )
+
+            access_token = response.data.get("access")
+            if access_token:
+                response.set_cookie(
+                    settings.SIMPLE_JWT.get("ACCESS_TOKEN_NAME", "access"),
+                    access_token,
+                    max_age=int(settings.SIMPLE_JWT.get(
+                        "ACCESS_TOKEN_LIFETIME", timedelta(minutes=5)).total_seconds()),
+                    httponly=True,
+                    samesite=settings.SIMPLE_JWT.get(
+                        "AUTH_COOKIE_SAMESITE", 'Lax'),
+                    domain=settings.SIMPLE_JWT.get("AUTH_COOKIE_DOMAIN", None),
+                    secure=settings.SIMPLE_JWT.get("AUTH_COOKIE_SECURE", True),
+                )
+                del response.data["access"]
+
+        return response
 
 
 class JWTCookieTokenObtainPairView(JWTSetCookieMixin, TokenObtainPairView):

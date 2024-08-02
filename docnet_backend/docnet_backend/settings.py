@@ -209,14 +209,23 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=20),
 
     # JWTCookie settings
-    "ACCESS_TOKEN_NAME": "access",
-    "REFRESH_TOKEN_NAME": "refresh",
-    "JWT_COOKIE_SAMESITE": "None",  # Use None for cross-site requests (Lax)
-    "JWT_COOKIE_SECURE": False,  # Ensure cookies are sent over HTTPS
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_COOKIE': 'access',
+    'REFRESH_TOKEN_NAME': 'refresh',
+    'ACCESS_TOKEN_NAME': 'access',
+    'AUTH_COOKIE_DOMAIN': 'docnet-test.onrender.com',
+    'AUTH_COOKIE_SECURE': True,
+    'AUTH_COOKIE_HTTP_ONLY': True,
+    'AUTH_COOKIE_SAMESITE': 'Lax',
 }
 
 # Cookie settings
 SESSION_COOKIE_SAMESITE = 'Lax'
-SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SAMESITE = 'Lax'
-CSRF_COOKIE_SECURE = False
+
+SECURE_SSL_REDIRECT = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_REFERRER_POLICY = 'no-referrer-when-downgrade'
