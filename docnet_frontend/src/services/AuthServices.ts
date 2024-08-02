@@ -19,7 +19,7 @@ export function useAuthService(): AuthServiceProps {
     const getUserDetails = async () =>{
         try {
             const response = await axios.get(
-                `${BASE_URL}/users/me`,
+                `${BASE_URL}/users/me/`,
                 {
                     withCredentials: true
                 }
