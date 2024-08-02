@@ -60,7 +60,7 @@ export function useAuthService(): AuthServiceProps {
 
             // I used setTimeout to delay the navigation to the profile page
             // So that the data I need to store in localstorage is available
-            setTimeout(() => navigate("/"), 200)
+            setTimeout(() => navigate("/"), 1000)
         } catch (err: any) {
             return err.response.status;
         }
