@@ -11,5 +11,10 @@ class JWTAuthenticationMiddleware(MiddlewareMixin):
             token = request.COOKIES[token_name]
             csrf_token = request.COOKIES.get("csrftoken", "")
 
+
+            print(f"token: {token}")
+            print(f"csrf_token: {csrf_token}")
+
             request.META['HTTP_AUTHORIZATION'] = f'Bearer {token}'
             request.META['HTTP_X_CSRFTOKEN'] = csrf_token
+
