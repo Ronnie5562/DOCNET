@@ -1,5 +1,11 @@
 import { createTheme } from '@mui/material/styles';
 
+declare module '@mui/material/styles' {
+    interface Components {
+        [key: string]: any
+    }
+}
+
 const schedulerTheme = (mode: string | undefined) => {
     const theme = createTheme({
         palette: {

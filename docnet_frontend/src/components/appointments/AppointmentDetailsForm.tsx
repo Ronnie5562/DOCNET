@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { useColorScheme } from '@mui/joy';
 import { Box, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';

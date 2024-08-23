@@ -22,10 +22,6 @@ USE_DEFAULT_DATABASE = config("USE_DEFAULT_DATABASE", default=False, cast=bool)
 
 ALLOWED_HOSTS = ["*"]
 
-# To allow POST request from frontend
-CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:5173',
-]
 
 # Application definition
 
@@ -61,14 +57,14 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
+    "accounts.middleware.JWTAuthenticationMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "accounts.middleware.JWTAuthenticationMiddleware",
 ]
 
 ROOT_URLCONF = "docnet_backend.urls"
@@ -193,15 +189,44 @@ SPECTACULAR_SETTINGS = {
     # OTHER SETTINGS
 }
 
-CORS_ALLOW_ALL_ORIGINS = True
+# To allow POST request from frontend
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:5173',
+    'https://docnet-frontend.onrender.com',
+    'https://docnet-test.onrender.com',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',
+    'https://docnet-frontend.onrender.com',
+    'https://docnet-test.onrender.com',
+]
+
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = True
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=20),
 
-    # JWTCookie
-    "ACCESS_TOKEN_NAME": "access",
-    "REFRESH_TOKEN_NAME": "refresh",
-    "JWT_COOKIE_SAMESITE": "Lax",
+    # JWTCookie settings
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_COOKIE': 'access',
+    'REFRESH_TOKEN_NAME': 'refresh',
+    'ACCESS_TOKEN_NAME': 'access',
+    # 'AUTH_COOKIE_DOMAIN': 'docnet-test.onrender.com',
+    'AUTH_COOKIE_SECURE': False,
+    'AUTH_COOKIE_HTTP_ONLY': True,
+    'AUTH_COOKIE_SAMESITE': 'Lax',
 }
+
+# Cookie settings
+SESSION_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_SAMESITE = 'Lax'
+
+SECURE_SSL_REDIRECT = False
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False
+SECURE_REFERRER_POLICY = 'no-referrer-when-downgrade'

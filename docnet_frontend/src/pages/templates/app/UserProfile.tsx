@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import AspectRatio from '@mui/joy/AspectRatio';
@@ -9,11 +9,11 @@ import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import FormHelperText from '@mui/joy/FormHelperText';
 import Input from '@mui/joy/Input';
-import IconButton from '@mui/joy/IconButton';
+// import IconButton from '@mui/joy/IconButton';
 import Textarea from '@mui/joy/Textarea';
 import Stack from '@mui/joy/Stack';
 import Select from '@mui/joy/Select';
-import Option from '@mui/joy/Option';
+// import Option from '@mui/joy/Option';
 import Typography from '@mui/joy/Typography';
 import Tabs from '@mui/joy/Tabs';
 import TabList from '@mui/joy/TabList';
@@ -31,7 +31,7 @@ import PhoneRoundedIcon from '@mui/icons-material/PhoneRounded';
 import AccessTimeFilledRoundedIcon from '@mui/icons-material/AccessTimeFilledRounded';
 import VideocamRoundedIcon from '@mui/icons-material/VideocamRounded';
 import InsertDriveFileRoundedIcon from '@mui/icons-material/InsertDriveFileRounded';
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
+// import EditRoundedIcon from '@mui/icons-material/EditRounded';
 
 import DropZone from '../../../components/profile/DropZone';
 import FileUpload from '../../../components/profile/FileUpload';
@@ -39,12 +39,12 @@ import CountrySelector from '../../../components/profile/CountrySelector';
 import EditorToolbar from '../../../components/profile/EditorToolbar';
 
 import useProfileService from '../../../services/ProfileServices';
-import useAxiosWithJwtInterceptor from "../../../helpers/jwtinterceptor";
+// import useAxiosWithJwtInterceptor from "../../../helpers/jwtinterceptor";
 
 import { UserAccountDataType } from "../../../@types/profile-service";
-import { Grid, MenuItem } from "@mui/material";
+import { Grid } from "@mui/material";
 import useUtilService from "../../../services/UtilityService";
-import { TimezoneType } from "../../../@types/utils-service";
+// import { TimezoneType } from "../../../@types/utils-service";
 
 
 const UserProfile = () => {
@@ -53,10 +53,14 @@ const UserProfile = () => {
     const { getUserProfileDetails, getUserAccountDetails } = useProfileService();
     const { getCountries, getTimezones } = useUtilService();
 
-    const jwtAxios = useAxiosWithJwtInterceptor();
+    // const jwtAxios = useAxiosWithJwtInterceptor();
 
     const [countries, setCountries] = useState([]);
     const [timezones, setTimezones] = useState([]);
+
+    if (countries && timezones) {
+        console.log("Countries and timezones fetched");
+    }
 
     useEffect(() => {
         const fetchCountries = async () => {

@@ -1,9 +1,7 @@
 import { HomeServiceProps } from "../@types/home-service";
 import { useState } from "react";
 import { BASE_URL } from "../config";
-import { useNavigate } from "react-router-dom";
 import useAxiosWithJwtInterceptor from "../helpers/jwtinterceptor";
-import { useAuthServiceContext } from '../context/AuthContext';
 
 
 const useHomeService = (): HomeServiceProps => {
@@ -15,6 +13,10 @@ const useHomeService = (): HomeServiceProps => {
     };
 
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>((getInitialLoggedInValue))
+
+    if (isLoggedIn) {
+        console.log("User is logged in")
+    }
 
 
     const getDoctorsList = async () => {

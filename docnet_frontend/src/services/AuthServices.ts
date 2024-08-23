@@ -19,7 +19,7 @@ export function useAuthService(): AuthServiceProps {
     const getUserDetails = async () =>{
         try {
             const response = await axios.get(
-                `${BASE_URL}/users/me`,
+                `${BASE_URL}/users/me/`,
                 {
                     withCredentials: true
                 }
@@ -47,20 +47,18 @@ export function useAuthService(): AuthServiceProps {
                 `${BASE_URL}/users/token/`, {
                     email,
                     password,
-            }, { withCredentials: true }
+                }, { withCredentials: true }
             );
 
             const user_id = response.data.user_id
             localStorage.setItem("user_id", user_id)
 
-            localStorage.setItem("isLoggedIn", "true")
-            setIsLoggedIn(true)
-
-            getUserDetails()
-
             // I used setTimeout to delay the navigation to the profile page
             // So that the data I need to store in localstorage is available
-            setTimeout(() => navigate("/"), 200)
+            setTimeout(() => navigate("/"), 1000)
+            localStorage.setItem("isLoggedIn", "true")
+            setIsLoggedIn(true)
+            getUserDetails()
         } catch (err: any) {
             return err.response.status;
         }

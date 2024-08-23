@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Typography from '@mui/joy/Typography';
 import { Avatar, Box, Breadcrumbs, Input, Link } from "@mui/joy";
 import UserCard from "../../../components/app/userCard";
@@ -235,17 +235,16 @@ const HomeTemplate = () => {
                     {
                         doctorList && doctorList.length > 0
                             ?
-                            doctorList.map((doctor: DoctorCardDetailsProps, index: number) => (
+                            doctorList.map((doctor: DoctorCardDetailsProps) => (
                                 <UserCard
                                     key={doctor.id}
                                     doctor={doctor}
                                     appointmentPage={false}
                                     id={`${Date.now()}-${Math.random()}`}
-                                // id={index.toString()}
                                 />
                             ))
                             :
-                            Array.from(new Array(5)).map((i, v) => (
+                            Array.from(new Array(5)).map((_, v) => (
                                 <UserCard
                                     key={v}
                                     doctor={null}

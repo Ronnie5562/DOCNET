@@ -1,10 +1,6 @@
-import axios from "axios";
 import { UtilsServiceProps } from "../@types/utils-service";
-import { useState } from "react";
 import { BASE_URL } from "../config";
-import { useNavigate } from "react-router-dom";
 import useAxiosWithJwtInterceptor from "../helpers/jwtinterceptor";
-import { useAuthServiceContext } from '../context/AuthContext';
 
 
 const useUtilService = (): UtilsServiceProps => {

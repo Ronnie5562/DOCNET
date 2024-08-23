@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import { RefObject, useEffect, useId, useState } from "react";
 import { motion } from "framer-motion";
@@ -96,6 +96,7 @@ export const AnimatedBeam: React.FC<AnimatedBeamProps> = ({
       // For all entries, recalculate the path
       for (let entry of entries) {
         updatePath();
+        console.log(entry)
       }
     });
 
